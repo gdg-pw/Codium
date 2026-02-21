@@ -1,0 +1,14 @@
+# Zależności
+node_modules/
+
+# Build (wynik budowania aplikacji)
+.next/
+out/
+build/
+
+# Środowisko lokalne (sekrety, klucze API)
+*.env
+
+# Logi i śmieci systemowe
+npm-debug.log*
+.DS_Store
