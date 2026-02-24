@@ -1,0 +1,10 @@
+.gameWrapper {
+    margin-left: 10%;
+    display: flex;
+}
+
+.flow {
+    background-color: red;
+}
+
+
