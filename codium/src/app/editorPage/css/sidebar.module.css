@@ -1,0 +1,47 @@
+.sidebar{
+    background-color: whitesmoke;
+    width: 25rem;
+    height: 100%;
+    overflow-y: auto;
+    color: white;
+    padding: 0.3rem;
+
+    display: flex;
+    flex-direction: column;
+}
+.title{
+    background-color: cornflowerblue;
+    border-radius: 0.6rem;
+    padding: 0.5rem;
+    margin-bottom: 0.3rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.description{
+    background-color: lightskyblue;
+    color: black;
+    border-radius: 0.6rem;
+    padding: 0.5rem;
+    margin-bottom: 0.3rem;
+    text-align: justify;
+}
+.objectives {
+    color: black;
+    padding: 0.5rem 0.5rem 0.5rem 2rem;
+    border-radius: 0.6rem;
+    margin: 0;
+    list-style-position: outside;
+}
+.objectives li {
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+}
+.group{
+    background-color: lightcyan;
+    margin: 0.3rem;
+    padding: 0.3rem;
+    border-radius: 0.6rem;
+}

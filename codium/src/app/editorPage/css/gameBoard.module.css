@@ -1,0 +1,10 @@
+.gameBoard {
+    background-color: whitesmoke;
+    flex: 1;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
