@@ -1,0 +1,42 @@
+.bar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    background-color: #41337A;
+    height: 6rem;
+    align-items: center;
+    gap: 0.4rem;
+    flex-shrink: 0;
+    font-size: 2rem;
+}
+
+.bar > * {
+    flex-shrink: 0;
+}
+
+.GDGicon {
+    background-color: #586C9D;
+    color: white;
+    width: 3.6rem;
+    height: 3.6rem;
+    border-radius: 0.6rem;
+    margin-left: 1rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.GDGsign {
+    background-color: #586C9D;
+    color:white;
+    width: 14rem;
+    height: 3.6rem;
+    border-radius: 0.6rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
