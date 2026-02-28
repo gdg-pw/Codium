@@ -1,0 +1,9 @@
+.sidebarPicker {
+    height: 100%;
+    width: 10%;
+    left: 0;
+    top: 0;
+    position: absolute;
+    overflow-y: auto;
+    background-color: #cccccc;
+}
