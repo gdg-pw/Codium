@@ -6,7 +6,7 @@ import {
     getStraightPath,
 } from '@xyflow/react';
 
-export default function TestEdge({
+export default function AnimatedEdge({
                                      id,
                                      sourceX,
                                      sourceY,

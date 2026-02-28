@@ -3,34 +3,33 @@
 import { Handle, Position } from '@xyflow/react';
 import Image from "next/image";
 
-export default function TestNode({data}) {
+export default function ExampleNode({data}) {
     const inputCount = 2;
     const spacing = 100 / (inputCount + 1);
 
-
-
-    return (
-        <div
-            style={{
+    let style = {
                 padding: 10,
                 background: 'white',
                 border: '2px solid #222',
                 borderRadius: 8,
-            }}
-        >
+    };
 
-        {
-            //Create {inputCount} input handles with {spacing}
-            Array.from({ length: inputCount }).map((_, i) => (
-                <Handle
-                    key={i}
-                    type="target"
-                    position={Position.Left}
-                    id={`left-${i}`}
-                    style={{ top: `${(i + 1) * spacing}%` }}
-                />
-            ))
-        }
+
+    return (
+        <div style={style}>
+
+            {
+                //Create {inputCount} input handles with {spacing}
+                Array.from({ length: inputCount }).map((_, i) => (
+                    <Handle
+                        key={i}
+                        type="target"
+                        position={Position.Left}
+                        id={`left-${i}`}
+                        style={{ top: `${(i + 1) * spacing}%` }}
+                    />
+                ))
+            }
 
             <Image src={data.iconFile} alt="Node icon" width={100} height={100} />
 

@@ -6,8 +6,9 @@
     justify-content: center;
     flex-direction: column;
     gap: 10px;
+    background-color: #cccccc;
 }
 
 .container:hover {
-    background-color: red;
+    background-color: #999999;
 }

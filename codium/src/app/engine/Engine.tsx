@@ -13,17 +13,17 @@ import {
 import '@xyflow/react/dist/style.css';
 import { Background, BackgroundVariant } from '@xyflow/react';
 
-import TestNode from './TestNode';
-import TestEdge from "@/app/engine/TestEdge";
+import ExampleNode from './ExampleNode';
+import AnimatedEdge from "@/app/engine/AnimatedEdge";
 import style from "./css/Engine.module.css"
 import SidebarPicker from "@/app/engine/SidebarPicker";
 //======================================================================================
 const edgeTypes = {
-    wire: TestEdge,
+    wire: AnimatedEdge,
 };
 
 const nodeTypes = {
-    test1: TestNode,
+    test1: ExampleNode,
 };
 //======================================================================================
 const initialNodes: Node[] = [
