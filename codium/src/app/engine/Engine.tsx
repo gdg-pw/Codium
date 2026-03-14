@@ -1,78 +1,63 @@
 "use client";
 //======================================================================================
-import {useState, useCallback, useRef} from 'react';
+import React, {useState, useCallback, useRef} from 'react';
 import {
     ReactFlow,
     applyNodeChanges,
     applyEdgeChanges,
     addEdge,
-    Edge,
     useReactFlow,
-    ReactFlowProvider, ConnectionLineType, Controls
+    ReactFlowProvider, ConnectionLineType, Controls, OnNodesChange, OnEdgesChange, Edge, XYPosition, Node
 } from '@xyflow/react';
 import '@xyflow/react/dist/style.css';
 import { Background, BackgroundVariant } from '@xyflow/react';
-
-import ExampleNode from './ExampleNode';
-import AnimatedEdge from "@/app/engine/AnimatedEdge";
-import style from "./css/Engine.module.css"
+//-------------------------------------------------------
+import ExampleNode from '@/app/engine/components/node/items/ExampleNode';
+import AnimatedEdge from "@/app/engine/components/AnimatedEdge";
 import SidebarPicker from "@/app/engine/SidebarPicker";
+import NodeInspector from "@/app/engine/components/node/NodeInspector";
+//-------------------------------------------------------
+import style from "@/app/engine/css/Engine.module.css"
+import {initialEdges, initialNodes} from "@/app/engine/TestLevel";
 //======================================================================================
+export type NodeData = {
+    label: string;
+    iconFile: string;
+    type: string;
+}
+
+interface EngineProps {
+    pendingNodeToAdd: NodeData | null;
+    setPendingNodeToAdd: (node: NodeData | null) => void;
+}
+
+
 const edgeTypes = {
     wire: AnimatedEdge,
 };
 
 const nodeTypes = {
     test1: ExampleNode,
+    gate1: ExampleNode,
+    gate2: ExampleNode,
+    math1: ExampleNode,
+    math2: ExampleNode,
+    whatever1: ExampleNode,
 };
 //======================================================================================
-const initialNodes: Node[] = [
-    {
-        id: 'test1',
-        type: 'test1',
-        position: { x: 100, y: 100 },
-        data: { //TODO: remove temp constant
-            label: 'Test_1',
-            iconFile: "/dog.svg"
-        },
-    },
-    {
-        id: 'test2',
-        type: 'test1',
-        position: { x: 300, y: 100 },
-        data: { //TODO: remove temp constant
-            label: 'Test_2',
-            iconFile: "/cat.svg"
-        },
-    },
-];
-//======================================================================================
-const initialEdges: Edge[] = [
-    {
-        id: '1-2',
-        source: 'test1',
-        target: 'test2',
-        sourceHandle: 'source',
-        targetHandle: 'left-1',
-        type: 'wire',
-        animated: true
-    },
-];
-//======================================================================================
-//======================================================================================
-function Engine() {
-    const [nodes, setNodes] = useState(initialNodes);
-    const [edges, setEdges] = useState(initialEdges);
+function Engine({ pendingNodeToAdd, setPendingNodeToAdd }: EngineProps) {
+    const [nodes, setNodes] = useState<Node[]>(initialNodes);
+    const [edges, setEdges] = useState<Edge[]>(initialEdges);
     const { screenToFlowPosition } = useReactFlow();
-    const [menu, setMenu] = useState(null);
+    const [selectedNode, setSelectedNode] = useState<Node | null>(null);
     const ref = useRef(null);
     //-------------------------------------------------------
-    const onNodesChange = useCallback(
+    const onNodesChange: OnNodesChange = useCallback(
         (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
         [],
     );
 
-    const onEdgesChange = useCallback(
+    const onEdgesChange: OnEdgesChange = useCallback(
         (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
         [],
     );
@@ -82,43 +67,88 @@ function Engine() {
         [],
     );
     //-------------------------------------------------------
-    //when dragged, drop the node where mouse cursor is
-    const evtOnDrop=useCallback(
-        (evt) => {
+    function makeFromNodeData(parsedData: NodeData, translatedPosition: XYPosition) {
+        const node: Node = {
+            id: `${parsedData.type}_node_${Date.now()}`,
+            type: parsedData.type,
+            position: translatedPosition,
+            data: {
+                label: parsedData.label,
+                iconFile: parsedData.iconFile
+            }
+        };
+        return node;
+    }
+
+//when dragged, drop the node where mouse cursor is
+    const evtOnDrop= useCallback(
+        (evt: React.DragEvent) => {
             evt.preventDefault();
 
-            const nodeType = evt.dataTransfer.getData("application/reactflow");
+            const dragDataString = evt.dataTransfer.getData("application/reactflow");
+            let parsedData;
+            try {
+                parsedData = JSON.parse(dragDataString);
+            } catch (e) {
+                return;
+            }
+
             const translatedPosition = screenToFlowPosition({
                 x: evt.clientX,
                 y: evt.clientY,
             });
 
-            const node: Node = {
-                id: `test_node_${Date.now()}`,
-                type: nodeType,
-                position: translatedPosition,
-                data: {
-                    label: nodeType,
-                    iconFile: "/dog.svg" //TODO: remove temp constant
-                }
-            };
+            const node = makeFromNodeData(parsedData, translatedPosition);
 
             setNodes((nds) => [...nds, node]) //add the node
         },
         [screenToFlowPosition],
     );
 
-    const evtOnDragOver= (evt) => {
+    const evtOnDragOver= (evt: React.DragEvent) => {
         evt.preventDefault();
         evt.dataTransfer.dropEffect = "move";
     };
 
 
-    const evtOnNodeContextMenu = (evt, node) => {
+    const evtOnNodeClicked = (evt: React.MouseEvent, clickedNode: Node) => {
         evt.preventDefault();
-        //TODO
-        console.log("Not implemented!");
+
+        //mark the clicked node as selected - only visually :(
+        setNodes((nds) =>
+            nds.map((node) => ({
+                ...node,
+
+                //TODO: this is temporary CHANGE ME LATER (I dont wanna be just a red ugly border pls🥺🥺🥺)!!!
+                style: {
+                    ...node.style,
+                    border: node.id === clickedNode.id ? "5px solid red" : "",
+                },
+            }))
+        );
+
+        setSelectedNode(clickedNode);
     };
+
+    const evtOnPaneClick = useCallback((evt: React.MouseEvent) => {
+        evt.preventDefault();
+        setSelectedNode(null)
+
+        if (pendingNodeToAdd) {
+            const translatedPosition = screenToFlowPosition({
+                x: evt.clientX,
+                y: evt.clientY,
+            });
+
+
+            const node = makeFromNodeData(pendingNodeToAdd, translatedPosition);
+
+            setNodes((nds) => [...nds, node]);
+
+            setPendingNodeToAdd(null);
+        }
+
+    }, [pendingNodeToAdd, screenToFlowPosition, setNodes, setPendingNodeToAdd]);
     //-------------------------------------------------------
     //-------------------------------------------------------
     return (
@@ -127,6 +157,7 @@ function Engine() {
                 //======================
                 //      DATA
                 //======================
+                ref={ref}
                 nodes={nodes}
                 edges={edges}
                 nodeTypes={nodeTypes}
@@ -134,6 +165,8 @@ function Engine() {
                 onNodesChange={onNodesChange}
                 onEdgesChange={onEdgesChange}
                 onConnect={onConnect}
+                selectionMode={'partial'}
+                selectionKeyCode={'Shift'}
                 //======================
                 //     APPEARANCE
                 //======================
@@ -153,7 +186,9 @@ function Engine() {
                 //======================
                 onDragOver={evtOnDragOver}
                 onDrop={evtOnDrop}
-                onNodeContextMenu={evtOnNodeContextMenu}
+                // onNodeContextMenu={evtOnNodeClicked}
+                onNodeClick={evtOnNodeClicked}
+                onPaneClick={evtOnPaneClick}
                 //======================
             >
                 <Background
@@ -172,15 +207,23 @@ function Engine() {
 
             />
             </ReactFlow>
+            <NodeInspector
+                node={selectedNode}
+                setSelectedNode={setSelectedNode}
+            />
         </div>
     );
 }
 
-export default () => (
-    <div className={style.gameWrapper}>
-        <SidebarPicker />
-        <ReactFlowProvider>
-            <Engine />
-        </ReactFlowProvider>
-    </div>
-);
+export default function GameWrapper() {
+    const [pendingNodeToAdd, setPendingNodeToAdd] = useState(null);
+
+    return (
+        <div className={style.gameWrapper}>
+            <SidebarPicker pendingNodeToAdd={pendingNodeToAdd} setPendingNodeToAdd={setPendingNodeToAdd} />
+            <ReactFlowProvider>
+                <Engine pendingNodeToAdd={pendingNodeToAdd} setPendingNodeToAdd={setPendingNodeToAdd}/>
+            </ReactFlowProvider>
+        </div>
+    )
+}

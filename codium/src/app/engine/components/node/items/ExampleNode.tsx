@@ -2,12 +2,17 @@
 
 import { Handle, Position } from '@xyflow/react';
 import Image from "next/image";
-
-export default function ExampleNode({data}) {
+import {NodeData} from "@/app/engine/Engine";
+//======================================================================================
+interface NodeProps {
+    data: NodeData;
+}
+//======================================================================================
+export default function ExampleNode({data}: NodeProps) {
     const inputCount = 2;
     const spacing = 100 / (inputCount + 1);
 
-    let style = {
+    const style = {
                 padding: 10,
                 background: 'white',
                 border: '2px solid #222',

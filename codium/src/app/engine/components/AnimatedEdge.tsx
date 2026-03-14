@@ -1,10 +1,15 @@
 'use client';
 
-import {
-    BaseEdge,
-    EdgeLabelRenderer, getBezierPath, getSmoothStepPath,
-    getStraightPath,
-} from '@xyflow/react';
+import { BaseEdge, getSmoothStepPath } from '@xyflow/react';
+
+interface AnimatedEdgeProps {
+    id: string;
+    sourceX: number;
+    sourceY: number;
+    targetX: number;
+    targetY: number;
+    selected: boolean;
+}
 
 export default function AnimatedEdge({
                                      id,
@@ -13,7 +18,7 @@ export default function AnimatedEdge({
                                      targetX,
                                      targetY,
                                      selected,
-                                 }) {
+                                 }: AnimatedEdgeProps) {
     const [edgePath] = getSmoothStepPath({
         sourceX,
         sourceY,
