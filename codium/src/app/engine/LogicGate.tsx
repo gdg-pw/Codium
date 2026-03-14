@@ -1,14 +1,19 @@
 import React from 'react';
 import { useState } from 'react';
-import { Handle, Position } from '@xyflow/react';
-import styles from './css/LogicGate.module.css';
+import { Handle, Position, useReactFlow } from '@xyflow/react';
+import styles from '@app/engine/css/LogicGate.module.css';
 
 interface GateData {
   label: string;
+  gateType: string;
 }
 
-export default function LogicGate({ data }: { data: GateData }) {
-  const [valueId, setValueId] = useState('AND');
+export default function LogicGate({ id, data }: { id: string, data: GateData }) {
+  const { updateNodeData } = useReactFlow();
+  const currentGate = data.gateType || 'AND';
+  const handleDropdownChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    updateNodeData(id, { gateType: e.target.value });
+  };
 
   return (
     <div className={styles.gateBody}>
@@ -29,7 +34,7 @@ export default function LogicGate({ data }: { data: GateData }) {
       />
 
       <div className={styles.dropdown}>
-        <select value={valueId} onChange={e => setValueId(e.target.value)}>
+        <select value={currentGate} onChange={handleDropdownChange}>
           <option value="AND">AND</option>
           <option value="OR">OR</option>
           <option value="NOT">NOT</option>
