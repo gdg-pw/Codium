@@ -1,0 +1,20 @@
+import {additionBlock} from "@/app/mathBlocks/Operations/add";
+import {divisionBlock} from "@/app/mathBlocks/Operations/division";
+import {multiplicationBlock} from "@/app/mathBlocks/Operations/multiplication";
+import {subtractionBlock} from "@/app/mathBlocks/Operations/substract";
+
+console.log(additionBlock(4, 5));
+console.log(divisionBlock(10, 0));
+console.log(divisionBlock(11.12, 3.3));
+console.log(multiplicationBlock(4, 7));
+console.log(subtractionBlock(3, 5));
+console.log("Addition (Number.MAX_SAFE_INTEGER + Number.MAX_SAFE_INTEGER):", additionBlock(Number.MAX_SAFE_INTEGER, Number.MAX_SAFE_INTEGER));
+console.log("Addition (Float precision):", additionBlock(0.1, 0.2));
+console.log("Subtraction (Negative):", subtractionBlock(10, 20));
+console.log("Subtraction (Limit):", subtractionBlock(Number.MIN_SAFE_INTEGER, 1));
+console.log("Multiplication (By zero):", multiplicationBlock(100, 0));
+console.log("Multiplication (Huge numbers):", multiplicationBlock(1e308, 2));
+console.log("Division (Zero by number):", divisionBlock(0, 10));
+console.log("Division (By zero):", divisionBlock(10, 0));
+console.log("Addition (Not a Number):", additionBlock(NaN, 5));
+console.log("Addition (Infinity):", additionBlock(Infinity, 1));
