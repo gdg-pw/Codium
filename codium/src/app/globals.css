@@ -1,13 +1,57 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+    /* Colors */
+	--white: #FFFFFF;
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+	--bluedark: #2359C5;
+	--blue: #4285F4;
+	--bluelight: #57CBFF;
+	--whiteblue: #E2EEF3;
+
+	--greendark: #25824B;
+	--green: #34A853;
+	--greenlight: #5CDE6D;
+	--whitegreen: #EAF1EA;
+
+	--yellowdark: #E69100;
+	--yellow: #FBBC04;
+	--yellowlight: #FFD5527;
+	--whiteyellow: #F2EFE0;
+
+	--reddark: #C52A28;
+	--red: #E74639;
+	--redlight: #FF7DB0;
+	--whitered: #F2E6E6;
+
+	--graydark: #3A4F42;
+	--gray: #5F6468;
+	--graylight: #807F85;
+	--whitegray: #E8EAED;
+
+    /* Font Sizes */
+    --fs-title: 2.5rem;
+    --fs-title2: 2rem;
+    --fs-headline: 1.5rem;
+    --fs-subheadline: 1.25rem;
+    --fs-body: 1rem;
+    --fs-footer: 0.875rem;
+    --fs-caption: 0.75rem;
+
+    /* Font Weights */
+    --fw-bold: 700;
+    --fw-medium: 500;
+    --fw-regular: 400;
+    --fw-light: 300;
+
+    /* Page Margin */
+    --page-margin: 5%;
+
+    /* Button Paddings */
+    --btn-padding-y: 18px; /* góra-dół */
+    --btn-padding-x: 40px; /* lewo-prawo */
+    --btn-padding: var(--btn-padding-y) var(--btn-padding-x);
+
+    /* Border Radius */
+    --radius-main: 30px;
 }
 
 html,
@@ -17,12 +61,13 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--white);
+  font-family: var(--font-fira-code), monospace, sans-serif;
+  font-variant-ligatures: contextual;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
 
 * {
   box-sizing: border-box;
