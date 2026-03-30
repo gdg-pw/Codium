@@ -21,21 +21,20 @@ export default function LogicGate({ id, data }: { id: string, data: GateData }) 
     <Card 
       sx={{ 
         minWidth: 160, 
-        overflow: 'visible', // Żeby nie ucinało kropek
-        borderRadius: '30px', // Z Design Systemu
+        overflow: 'visible',
+        borderRadius: '30px',
         border: '2px solid var(--blue)', 
         bgcolor: 'var(--white)',
         boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
       }}
     >
-      {/* NAGŁÓWEK */}
+      {/* HEADER */}
       <Box 
         sx={{ 
           bgcolor: 'var(--blue)', 
           py: 1, 
           textAlign: 'center', 
           cursor: 'grab',
-          // Odejmujemy grubość ramki od zaokrąglenia, żeby tło nie wystawało
           borderTopLeftRadius: '28px', 
           borderTopRightRadius: '28px' 
         }}
@@ -43,8 +42,8 @@ export default function LogicGate({ id, data }: { id: string, data: GateData }) 
         <Typography 
           sx={{ 
             fontFamily: "'Fira Code', monospace", 
-            fontSize: '0.875rem', // Z DS: Footer
-            fontWeight: 700,      // Z DS: Bold
+            fontSize: '0.875rem',
+            fontWeight: 700,
             color: 'var(--white)' 
           }}
         >
@@ -67,12 +66,12 @@ export default function LogicGate({ id, data }: { id: string, data: GateData }) 
           variant="outlined"
           sx={{ 
             fontFamily: "'Fira Code', monospace",
-            fontSize: '1rem', // Z DS: Body
-            fontWeight: 500,  // Z DS: Medium
+            fontSize: '1rem',
+            fontWeight: 500,
             color: 'var(--bluedark)',
-            bgcolor: 'var(--whiteblue)', // Lekkie tło dla inputa
-            borderRadius: '30px',        // Zaokrąglenie wewnątrz
-            '.MuiOutlinedInput-notchedOutline': { border: 'none' }, // Płaski design
+            bgcolor: 'var(--whiteblue)',
+            borderRadius: '30px',
+            '.MuiOutlinedInput-notchedOutline': { border: 'none' },
             '&:hover .MuiOutlinedInput-notchedOutline': { border: 'none' },
             '.MuiSvgIcon-root': { color: 'var(--blue)' }
           }}

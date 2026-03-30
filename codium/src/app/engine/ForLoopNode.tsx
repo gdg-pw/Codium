@@ -20,7 +20,7 @@ export default function ForLoopNode({ data }: NodeProps<Node<ForLoopData>>) {
         boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
       }}
     >
-      {/* NAGŁÓWEK */}
+      {/* HEADER */}
       <Box 
         sx={{ 
           bgcolor: 'var(--yellow)', 
