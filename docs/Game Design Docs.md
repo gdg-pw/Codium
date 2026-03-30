@@ -18,7 +18,8 @@ System składa się z trzech warstw:
 ## 📄 Opis Plików
 
 ### `BlockResult.ts`
-Definiuje ścisły format odpowiedzi przy użyciu **Unii Dyskryminatywnej** (Discriminated Union). Dzięki temu TypeScript wymusza sprawdzenie flagi `success` przed uzyskaniem dostępu do wyniku.
+Definiuje ścisły format odpowiedzi przy użyciu **[Unii Dyskryminatywnej](https://www.ibm.com/docs/en/aix/7.2.0?topic=types-discriminated-unions "Learn more about Discriminated Unions")**
+. Dzięki temu TypeScript wymusza sprawdzenie flagi `success` przed uzyskaniem dostępu do wyniku.
 
 ```typescript
 type BlockResult = 
