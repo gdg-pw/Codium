@@ -1,35 +1,71 @@
 import React from 'react';
 import { Handle, Position, type NodeProps, type Node } from '@xyflow/react';
-import styles from '@/app/engine/css/LogicGate.module.css'; // TODO: placeholder
+import { Card, Box, Typography } from '@mui/material';
 
 export type ForLoopData = {
-  startIndex: number;
-  endIndex: number;
-  label: string;
+  startIndex?: number;
+  endIndex?: number;
+  label?: string;
 };
 
 export default function ForLoopNode({ data }: NodeProps<Node<ForLoopData>>) {
   return (
-    <div className={styles.gateBody} style={{ minWidth: '150px', border: '2px solid #555' }}>
-        <div style={{ background: '#333', color: 'white', padding: '5px', textAlign: 'center', fontSize: '12px', borderBottom: '1px solid #555' }}>
-            FOR
-        </div>
+    <Card 
+      sx={{ 
+        minWidth: 200, 
+        overflow: 'visible', 
+        borderRadius: '30px',
+        border: '2px solid var(--yellowdark)',
+        bgcolor: 'var(--white)',
+        boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+      }}
+    >
+      {/* NAGŁÓWEK */}
+      <Box 
+        sx={{ 
+          bgcolor: 'var(--yellow)', 
+          py: 1, 
+          textAlign: 'center', 
+          cursor: 'grab',
+          borderTopLeftRadius: '28px', 
+          borderTopRightRadius: '28px' 
+        }}
+      >
+        <Typography 
+          sx={{ 
+            fontFamily: "'Fira Code', monospace", 
+            fontSize: '0.875rem',
+            fontWeight: 700,
+            color: 'var(--graydark)'
+          }}
+        >
+          FOR
+        </Typography>
+      </Box>
+      
+      {/* BODY */}
+      <Box sx={{ position: 'relative', height: 120, my: 1 }}>
+        
+        {/* IN */}
+        <Handle type="target" position={Position.Left} id="execute" style={{ top: '20%', background: 'var(--gray)', border: 'none' }} />
+        <Typography sx={{ position: 'absolute', left: 16, top: '10%', fontFamily: "'Fira Code', monospace", fontSize: '0.75rem', fontWeight: 500, color: 'var(--graydark)' }}>EXEC</Typography>
 
-        {/* INPUT */}
-        <Handle type="target" position={Position.Left} id="execute" style={{ top: '30%' }} />
-        <div style={{ position: 'absolute', left: 15, top: '26%', fontSize: '10px' }}></div>
-        <Handle type="target" position={Position.Left} id="startIndex" style={{ top: '60%' }} />
-        <div style={{ position: 'absolute', left: 15, top: '56%', fontSize: '10px' }}>START</div>
-        <Handle type="target" position={Position.Left} id="endIndex" style={{ top: '90%' }} />
-        <div style={{ position: 'absolute', left: 15, top: '86%', fontSize: '10px' }}>END</div>
+        <Handle type="target" position={Position.Left} id="startIndex" style={{ top: '50%', background: 'var(--yellowdark)', border: 'none' }} />
+        <Typography sx={{ position: 'absolute', left: 16, top: '40%', fontFamily: "'Fira Code', monospace", fontSize: '0.75rem', fontWeight: 500, color: 'var(--graydark)' }}>START</Typography>
 
-        {/* OUTPUT */}
-        <Handle type="source" position={Position.Right} id="loopBody" style={{ top: '30%' }} />
-        <div style={{ position: 'absolute', right: 15, top: '26%', fontSize: '10px' }}>LOOP BODY</div>
-        <Handle type="source" position={Position.Right} id="currentIndex" style={{ top: '60%' }} />
-        <div style={{ position: 'absolute', right: 15, top: '56%', fontSize: '10px' }}>i</div>
-        <Handle type="source" position={Position.Right} id="completed" style={{ top: '90%' }} />
-        <div style={{ position: 'absolute', right: 15, top: '86%', fontSize: '10px' }}>COMPLETED</div>
-    </div>
+        <Handle type="target" position={Position.Left} id="endIndex" style={{ top: '80%', background: 'var(--yellowdark)', border: 'none' }} />
+        <Typography sx={{ position: 'absolute', left: 16, top: '70%', fontFamily: "'Fira Code', monospace", fontSize: '0.75rem', fontWeight: 500, color: 'var(--graydark)' }}>END</Typography>
+
+        {/* OUT */}
+        <Handle type="source" position={Position.Right} id="loopBody" style={{ top: '20%', background: 'var(--gray)', border: 'none' }} />
+        <Typography sx={{ position: 'absolute', right: 16, top: '10%', fontFamily: "'Fira Code', monospace", fontSize: '0.75rem', fontWeight: 500, color: 'var(--graydark)' }}>LOOP</Typography>
+
+        <Handle type="source" position={Position.Right} id="currentIndex" style={{ top: '50%', background: 'var(--yellowdark)', border: 'none' }} />
+        <Typography sx={{ position: 'absolute', right: 16, top: '40%', fontFamily: "'Fira Code', monospace", fontSize: '0.75rem', fontWeight: 500, color: 'var(--graydark)' }}>i</Typography>
+
+        <Handle type="source" position={Position.Right} id="completed" style={{ top: '80%', background: 'var(--gray)', border: 'none' }} />
+        <Typography sx={{ position: 'absolute', right: 16, top: '70%', fontFamily: "'Fira Code', monospace", fontSize: '0.75rem', fontWeight: 500, color: 'var(--graydark)' }}>COMPLETED</Typography>
+      </Box>
+    </Card>
   );
 }
