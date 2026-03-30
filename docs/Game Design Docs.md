@@ -2,8 +2,6 @@
 
 /* Tutaj będzie opis jak budować levele pod kątem tematyki i sposobu działania \*/
 
-Dziękuję za przesłanie brakujących plików. Masz teraz kompletny, modularny system. Poniżej znajduje się finalna wersja dokumentacji w formacie `.md`, która uwzględnia logikę `BlockRunner` oraz unię dyskryminatywną w `BlockResult`.
-
 ---
 
 # Dokumentacja MathBlocks:
