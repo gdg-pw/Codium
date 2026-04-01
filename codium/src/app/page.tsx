@@ -7,11 +7,18 @@ import styles from "./page.module.css";
 import GradientLine from "./shared/GradientLine";
 import { useRouter } from "next/navigation";
 
+interface SocialLogoButton{
+  label: string,
+  imageSrc: string,
+  alt: string,
+  onClick: () => void,
+}
+
 export default function LandingPage() {
   const router = useRouter();
 
-  const renderLogoButtons = (items) =>
-    items.map(({ label, imageSrc, alt, onClick}, index) => (
+  const renderLogoButtons = (items: SocialLogoButton[]) =>
+    items.map(({ label, imageSrc, alt, onClick}: SocialLogoButton, index: number) => (
       <Button
           onClick={onClick}
           className={styles.socialItem}
