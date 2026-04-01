@@ -10,8 +10,8 @@ import {
   Collapse,
   Divider,
   Box,
-  IconButton,
   Typography,
+  Button,
 } from "@mui/material";
 
 import {
@@ -27,6 +27,8 @@ import {
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import Image from "next/image";
+
+import styles from "./MainDrawer.module.css";
 
 const initialOpen = {};
 
@@ -52,12 +54,8 @@ const MainDrawer = ({ state, setState, isLoggedIn }) => {
         )}
 
         <ListItemButton
+          className={`${styles.listItemButton} ${nested ? styles.listItemButtonNested : ""}`}
           disableRipple
-          sx={{
-            ml: nested ? 4 : 0,
-            borderRadius: "12px",
-            "&:hover": { color: "primary.main" },
-          }}
           onClick={() => {
             if (children) {
               handleToggle(label);
@@ -84,43 +82,29 @@ const MainDrawer = ({ state, setState, isLoggedIn }) => {
       </div>
     ));
 
+
   const logButton = () => {
-    var text = isLoggedIn ? "Logout" : "Login";
+    const text = isLoggedIn ? "Logout" : "Login";
+    const logButtonHandler = isLoggedIn
+    ? () => {
+        /* logout logic */
+        setOpen(false);
+      }
+    : () => {
+        router.push("/login");
+        setOpen(false);
+      };
 
     return (
-      <IconButton
+      <Button
         disableRipple
-        variant="none"
-        onClick={
-          isLoggedIn
-            ? () => {
-                /* logout logic */
-                setOpen(false);
-              }
-            : () => {
-                router.push("/login");
-                setOpen(false);
-              }
-        }
-        sx={{
-          mt: "auto",
-          mx: "1rem",
-          mb: "3rem",
-          px: "3rem",
-          bgcolor: "background.paper",
-          border: "2px solid",
-          borderRadius: "12px",
-          borderColor: "background.paperBorder",
-
-          "&:hover": {
-            borderColor: "primary.dim",
-          },
-        }}
+        className={styles.logButton}
+        onClick={logButtonHandler}
       >
-        <Typography variant="h5" sx={{ px: "1rem" }}>
+        <Typography fontSize={"large"} fontWeight={"bold"}>
           {text}
         </Typography>
-      </IconButton>
+      </Button>
     );
   };
 
@@ -170,18 +154,8 @@ const MainDrawer = ({ state, setState, isLoggedIn }) => {
 
   return (
     <Drawer open={open} onClose={() => setOpen(false)}>
-      <Box
-        p={"1rem"}
-        height={"100%"}
-        bgcolor={"background.default"}
-        borderRight={"1px solid"}
-        borderColor={"background.defaultBorder"}
-        width={"250px"}
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-      >
-        <Image width={150} height={90} src={"/gdg_logo.svg"} alt="GDG Logo"/>
+      <Box className={styles.box}>
+        <Image width={150} height={90} src={"/gdg_logo.svg"} alt="GDG Logo" />
         <List sx={{ width: "100%" }}>{renderMenuItems(menuItems)}</List>
         {logButton()}
       </Box>

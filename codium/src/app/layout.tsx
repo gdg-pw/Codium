@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import MainDrawer from "@/app/shared/MainDrawer";
+import { StyledEngineProvider } from '@mui/material/styles';
 
 import "./globals.css";
 
@@ -24,6 +25,7 @@ export default function RootLayout({
   return (
     <html lang="pl" className={firaCode.variable}>
       <body>
+        <StyledEngineProvider injectFirst>
         <MainDrawer state={open} setState={setOpen} isLoggedIn={isLoggedIn} />
 
         <IconButton
@@ -39,6 +41,7 @@ export default function RootLayout({
         </IconButton>
 
         {children}
+        </StyledEngineProvider>
       </body>
     </html>
   );

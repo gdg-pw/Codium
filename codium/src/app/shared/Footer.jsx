@@ -10,7 +10,7 @@ export default function Footer() {
     <Box sx={{ textAlign: "center", mr: "auto" }}>
       <Typography
         variant="caption"
-        sx={{ color:   "#555", mb: 1 }}
+        sx={{ color:   "#555" }}
       >
         Codium © 2026
       </Typography>
