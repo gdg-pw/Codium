@@ -24,8 +24,9 @@ import {
   Home,
   GitHub,
 } from "@mui/icons-material";
-import WidgetsIcon from '@mui/icons-material/Widgets';
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import WidgetsIcon from "@mui/icons-material/Widgets";
+import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
+import Image from "next/image";
 
 const initialOpen = {};
 
@@ -53,9 +54,8 @@ const MainDrawer = ({ state, setState, isLoggedIn }) => {
         <ListItemButton
           disableRipple
           sx={{
+            ml: nested ? 4 : 0,
             borderRadius: "12px",
-            pl: nested ? 4 : 2,
-            mb: nested ? 1 : 0,
             "&:hover": { color: "primary.main" },
           }}
           onClick={() => {
@@ -87,31 +87,41 @@ const MainDrawer = ({ state, setState, isLoggedIn }) => {
   const logButton = () => {
     var text = isLoggedIn ? "Logout" : "Login";
 
-    return <IconButton
-      disableRipple
-      variant="none"
-      onClick={isLoggedIn ?
-        () => {/* logout logic */}:
-        () => { router.push("/login") }
-      }
-      sx={{
-        mt: "auto",
-        mx: "1rem",
-        mb: "3rem",
-        bgcolor: "background.paper",
-        border: "2px solid",
-        borderRadius: "12px",
-        borderColor: "background.paperBorder",
+    return (
+      <IconButton
+        disableRipple
+        variant="none"
+        onClick={
+          isLoggedIn
+            ? () => {
+                /* logout logic */
+                setOpen(false);
+              }
+            : () => {
+                router.push("/login");
+                setOpen(false);
+              }
+        }
+        sx={{
+          mt: "auto",
+          mx: "1rem",
+          mb: "3rem",
+          px: "3rem",
+          bgcolor: "background.paper",
+          border: "2px solid",
+          borderRadius: "12px",
+          borderColor: "background.paperBorder",
 
-        "&:hover": {
-          borderColor: "primary.dim",
-        },
-      }}
-    >
-      <Typography variant="h5" sx={{ px: "1rem" }}>
-        {text}
-      </Typography>
-    </IconButton>
+          "&:hover": {
+            borderColor: "primary.dim",
+          },
+        }}
+      >
+        <Typography variant="h5" sx={{ px: "1rem" }}>
+          {text}
+        </Typography>
+      </IconButton>
+    );
   };
 
   const menuItems = [
@@ -155,7 +165,7 @@ const MainDrawer = ({ state, setState, isLoggedIn }) => {
       label: "Github page",
       icon: GitHub,
       onClick: () => router.push("https://github.com/gdg-pw"),
-    }
+    },
   ];
 
   return (
@@ -166,16 +176,15 @@ const MainDrawer = ({ state, setState, isLoggedIn }) => {
         bgcolor={"background.default"}
         borderRight={"1px solid"}
         borderColor={"background.defaultBorder"}
-        width={"fit-content"}
+        width={"250px"}
         display={"flex"}
         flexDirection={"column"}
-        gap={"1rem"}
-        sx={{ overflowY: "hidden" }}
+        alignItems={"center"}
       >
-        <Image></Image>
-        <List>{renderMenuItems(menuItems)}</List>
+        <Image width={150} height={90} src={"/gdg_logo.svg"} alt="GDG Logo"/>
+        <List sx={{ width: "100%" }}>{renderMenuItems(menuItems)}</List>
+        {logButton()}
       </Box>
-      {logButton()}
     </Drawer>
   );
 };
