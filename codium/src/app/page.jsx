@@ -63,7 +63,6 @@ export default function LandingPage() {
           </Typography>
           <Button
             variant="contained"
-            disableElevation
             className={`${styles.btn} ${styles.btnLarge}`}
           >
             Play

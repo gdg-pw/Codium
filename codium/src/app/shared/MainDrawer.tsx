@@ -30,20 +30,35 @@ import Image from "next/image";
 
 import styles from "./MainDrawer.module.css";
 
-const initialOpen = {};
+interface MainDrawerProps {
+    state: boolean,
+    setState: React.Dispatch<React.SetStateAction<boolean>>
+    isLoggedIn: boolean
+}
 
-const MainDrawer = ({ state, setState, isLoggedIn }) => {
-  const [open, setOpen] = [state, setState];
-  const [openMenus, setOpenMenus] = useState(initialOpen);
+interface MenuItem {
+  label: string,
+  icon: React.ElementType,
+  onClick?: () => void,
+  children?: MenuItem[],
+}
+
+type OpenMenusHashMap = {[key: string]: boolean}
+
+const initialOpen: OpenMenusHashMap = {};
+const MainDrawer = ({ state, setState, isLoggedIn }: MainDrawerProps) => {
 
   const router = useRouter();
 
-  const handleToggle = (label) => {
+  const [open, setOpen] = [state, setState];
+  const [openMenus, setOpenMenus] = useState<OpenMenusHashMap>(initialOpen);
+
+  const handleToggle = (label: string) => {
     setOpenMenus((prev) => ({ ...prev, [label]: !prev[label] }));
   };
 
-  const renderMenuItems = (items, nested = false) =>
-    items.map(({ label, icon: Icon, onClick, children }, index) => (
+  const renderMenuItems = (items: MenuItem[], nested : boolean = false) =>
+    items.map(({ label, icon: Icon, onClick, children } : MenuItem, index: number) => (
       <div key={label}>
         {!nested && index !== 0 && (
           <Divider variant="middle" component="li" sx={{ my: "0.5rem" }} />
@@ -59,7 +74,7 @@ const MainDrawer = ({ state, setState, isLoggedIn }) => {
           onClick={() => {
             if (children) {
               handleToggle(label);
-            } else {
+            } else if (onClick != null) {
               onClick();
               setOpen(false);
             }
@@ -108,7 +123,7 @@ const MainDrawer = ({ state, setState, isLoggedIn }) => {
     );
   };
 
-  const menuItems = [
+  const menuItems : MenuItem[] = [
     {
       label: "Home",
       icon: Home,

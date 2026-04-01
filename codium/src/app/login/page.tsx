@@ -242,7 +242,7 @@ function LoginPageContent({ toggleTheme }: { toggleTheme: () => void }) {
           </Box>
         </Paper>
 
-        <Footer isDark={isDark}/>
+        <Footer />
       </Container>
     </Box>
   );
