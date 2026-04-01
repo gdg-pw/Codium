@@ -11,16 +11,25 @@ import {
   Link,
 } from "@mui/material";
 import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
+import GradientLine from "@/app/shared/GradientLine";
+import Footer from "@/app/shared/Footer";
 import Image from "next/image";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import { useRouter } from "next/navigation";
 
 function LoginPageContent({ toggleTheme }: { toggleTheme: () => void }) {
   const theme = useTheme();
+  const router = useRouter();
   const isDark = theme.palette.mode === "dark";
 
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const routeToHome = () => {
+    router.push("/")
+  }
 
   // TODO: Temp, replace with real auth logic
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,8 +66,8 @@ function LoginPageContent({ toggleTheme }: { toggleTheme: () => void }) {
         >
           {/* Home button */}
           <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-start", mt: 15 }}>
-            <Link href="/" underline="none">
               <Button
+                onClick={routeToHome}
                 variant="contained"
                 size="medium"
                 sx={{
@@ -72,9 +81,9 @@ function LoginPageContent({ toggleTheme }: { toggleTheme: () => void }) {
                   "&:hover": { backgroundColor: "#1565c0" },
                 }}
               >
+                <ArrowBackIosIcon/>
                 Home
               </Button>
-            </Link>
           </Box>
 
           {/* Logo */}
@@ -91,37 +100,12 @@ function LoginPageContent({ toggleTheme }: { toggleTheme: () => void }) {
             </Typography>
           </Box>
 
-          {/* Theme button */}
-          <Box sx={{ flex: 1, display: "flex", justifyContent: "flex-end", mt: 15 }}>
-            <Button
-              onClick={toggleTheme}
-              variant="contained"
-              size="medium"
-              sx={{
-                backgroundColor: "#1976d2",
-                color: "#fff",
-                borderRadius: 8,
-                textTransform: "capitalize",
-                px: 3,
-                py: 1.5,
-                fontSize: "0.9rem",
-                "&:hover": { backgroundColor: "#1565c0" },
-              }}
-            >
-              {isDark ? "Light" : "Dark"}
-            </Button>
-          </Box>
+          {/* Padding for Logo to be at center */}
+          <Box sx={{ flex: 1 }} />
         </Box>
 
-        {/* Gradient line */}
-        <Box
-          sx={{
-            height: "4px",
-            borderRadius: 2,
-            mb: 3,
-            background: "linear-gradient(90deg, #4285F4, #34A853, #FBBC05, #EA4335)",
-          }}
-        />
+
+        <GradientLine/> 
 
         {/* Login Card */}
         <Paper
@@ -258,20 +242,7 @@ function LoginPageContent({ toggleTheme }: { toggleTheme: () => void }) {
           </Box>
         </Paper>
 
-        {/* Footer */}
-        <Box sx={{ py: 2, textAlign: "center" }}>
-          <Typography variant="caption" sx={{ color: isDark ? "#bbb" : "#555", mb: 1 }}>
-            Codium © 2026
-          </Typography>
-          <Box>
-            <Link href="/privacy" variant="caption" sx={{ mr: 2, color: isDark ? "#ccc" : "#444" }}>
-              Privacy
-            </Link>
-            <Link href="/terms" variant="caption" sx={{ color: isDark ? "#ccc" : "#444" }}>
-              Terms
-            </Link>
-          </Box>
-        </Box>
+        <Footer isDark={isDark}/>
       </Container>
     </Box>
   );
