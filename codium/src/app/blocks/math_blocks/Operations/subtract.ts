@@ -1,6 +1,6 @@
-import {BlockResult} from "@/app/mathBlocks/BlockResult";
+import {BaseBlock} from "@/app/blocks/BaseBlock";
 
-export function subtractionBlock(a: number, b: number): BlockResult {
+export function subtractionBlock(a: number, b: number): BaseBlock {
     const result = a - b;
 
     if (!Number.isFinite(result)) {

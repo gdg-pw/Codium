@@ -1,7 +1,7 @@
-import {BlockResult} from "@/app/mathBlocks/BlockResult";
+import {BaseBlock} from "@/app/blocks/BaseBlock";
 
-export function additionBlock(a: number, b: number): BlockResult {
-    const result = a + b;
+export function multiplicationBlock(a: number, b: number): BaseBlock {
+    const result = a * b;
 
     if (!Number.isFinite(result)) {
         return {

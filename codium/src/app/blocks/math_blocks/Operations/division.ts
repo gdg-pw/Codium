@@ -1,6 +1,6 @@
-import {BlockResult} from "@/app/mathBlocks/BlockResult";
+import {BaseBlock} from "@/app/blocks/BaseBlock";
 
-export function divisionBlock(a: number, b: number): BlockResult {
+export function divisionBlock(a: number, b: number): BaseBlock {
     if (b === 0) {
         return { success: false, error: "Division by zero is not allowed." };
     }
