@@ -55,7 +55,7 @@
   border-radius: var(--radius-main);
   
   --angle: 0deg;
-  background-image: var(--gdg-conic-gradient);
+  background-image: conic-gradient(from var(--angle),var(--red), var(--yellow), var(--green), var(--blue), var(--red));
   
   animation: 3s spin linear infinite;
 

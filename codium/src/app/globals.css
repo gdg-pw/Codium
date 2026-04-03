@@ -52,9 +52,6 @@
 
     /* Border Radius */
     --radius-main: 30px;
-
-    /* GDG Colors conic gradient*/
-    --gdg-conic-gradient: conic-gradient(from var(--angle),var(--red), var(--yellow), var(--green), var(--blue), var(--red));
 }
 
 html,

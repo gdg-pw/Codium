@@ -25,8 +25,8 @@ export default function RootLayout({
     <html lang="pl" className={firaCode.variable}>
       <body>
         <StyledEngineProvider injectFirst>
-          <MainDrawer state={open} setState={setOpen} isLoggedIn={isLoggedIn} />
           <Topbar menuButtonCallback={() => setOpen(true)}/>
+          <MainDrawer state={open} setState={setOpen} isLoggedIn={isLoggedIn} />
           {children}
         </StyledEngineProvider>
       </body>

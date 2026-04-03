@@ -13,12 +13,12 @@ export default function Topbar({ menuButtonCallback }: TopbarProps) {
         display: "flex",
         flexDirection: "row",
         width: "100%",
-        pr: "4rem",
+        py:"1rem",
+        px:"2rem",
         gap: "1.5rem",
 
-        position: "fixed",
-        top: 24,
-        left: 24,
+        bgcolor: "var(--white)",
+
         zIndex: 1000,
       }}
     >
@@ -30,7 +30,7 @@ export default function Topbar({ menuButtonCallback }: TopbarProps) {
         variant="h5"
         sx={{
           fontSize: "var(--fs-title2)",
-          fontWeight: "vat(--fw-bold)",
+          fontWeight: "var(--fw-medium)",
           alignContent: "center",
           color: "black",
           mr: "auto",
