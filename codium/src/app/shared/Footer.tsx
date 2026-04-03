@@ -7,7 +7,7 @@ import {
 
 export default function Footer() {
   return (
-    <Box sx={{ textAlign: "center", mr: "auto" }}>
+    <Box sx={{ textAlign: "center"}}>
       <Typography
         variant="caption"
         sx={{ color:   "#555" }}

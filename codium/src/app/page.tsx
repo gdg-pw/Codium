@@ -88,7 +88,9 @@ export default function LandingPage() {
       {/* Tab at the bottom */}
       <GradientLine/>
       <Stack component="section" direction="row" className={styles.socialBar}>
-        <Footer/>
+        <Box sx={{mr: "auto"}}>
+          <Footer/>
+        </Box>
         <List>{renderLogoButtons(logoButtons)}</List>
       </Stack>
     </Box>
