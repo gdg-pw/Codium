@@ -1,14 +1,13 @@
 "use client";
 
 import { Fira_Code } from "next/font/google";
-import {  IconButton } from "@mui/material";
 import { useState } from "react";
 
-import MenuIcon from "@mui/icons-material/Menu";
 import MainDrawer from "@/app/shared/MainDrawer";
-import { StyledEngineProvider } from '@mui/material/styles';
+import { StyledEngineProvider } from "@mui/material/styles";
 
 import "./globals.css";
+import Topbar from "./shared/Topbar";
 
 const firaCode = Fira_Code({
   subsets: ["latin", "latin-ext"],
@@ -26,21 +25,9 @@ export default function RootLayout({
     <html lang="pl" className={firaCode.variable}>
       <body>
         <StyledEngineProvider injectFirst>
-        <MainDrawer state={open} setState={setOpen} isLoggedIn={isLoggedIn} />
-
-        <IconButton
-          onClick={() => setOpen(true)}
-          sx={{
-            position: "fixed",
-            top: 24, 
-            left: 24, 
-            zIndex: 1000, 
-          }}
-        >
-          <MenuIcon sx={{ fontSize: "2.5rem", color:"var(--gray)" }} />
-        </IconButton>
-
-        {children}
+          <MainDrawer state={open} setState={setOpen} isLoggedIn={isLoggedIn} />
+          <Topbar menuButtonCallback={() => setOpen(true)}/>
+          {children}
         </StyledEngineProvider>
       </body>
     </html>

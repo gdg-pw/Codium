@@ -63,9 +63,6 @@ export default function LandingPage() {
 
         <Box className={styles.heroContent}>
           <Typography variant="h1" className={styles.title}>
-            Codium
-          </Typography>
-          <Typography variant="body1" className={styles.subtitle}>
             Learn how to code with corgi!
           </Typography>
           <Button
