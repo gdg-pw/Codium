@@ -19,6 +19,7 @@ import NodeInspector from "@/app/engine/components/node/NodeInspector";
 //-------------------------------------------------------
 import style from "@/app/engine/css/Engine.module.css"
 import {initialEdges, initialNodes} from "@/app/engine/TestLevel";
+import IfNode from "@/app/engine/IfNode";
 //======================================================================================
 export type NodeData = {
     label: string;
@@ -43,6 +44,7 @@ const nodeTypes = {
     math1: ExampleNode,
     math2: ExampleNode,
     whatever1: ExampleNode,
+    ifNode: IfNode,
 };
 //======================================================================================
 function Engine({ pendingNodeToAdd, setPendingNodeToAdd }: EngineProps) {

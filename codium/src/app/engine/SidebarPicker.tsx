@@ -18,6 +18,9 @@ const NODE_CATEGORIES = {
     ],
     "Whatever": [
         { type: "whatever1", label: "C3_Test1", iconFile: "/dog.svg" },
+    ],
+    "Control Flow": [
+        { type: "ifNode", label: "C4_Test1", iconFile: "/dog.svg" }
     ]
 };
 
