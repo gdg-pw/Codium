@@ -1,57 +1,66 @@
 :root {
-    /* Colors */
-	--white: #FFFFFF;
+  /* Colors */
+  --white: #ffffff;
 
-	--bluedark: #2359C5;
-	--blue: #4285F4;
-	--bluelight: #57CBFF;
-	--whiteblue: #E2EEF3;
+  --bluedark: #2359c5;
+  --blue: #4285f4;
+  --bluelight: #57cbff;
+  --whiteblue: #e2eef3;
 
-	--greendark: #25824B;
-	--green: #34A853;
-	--greenlight: #5CDE6D;
-	--whitegreen: #EAF1EA;
+  --greendark: #25824b;
+  --green: #34a853;
+  --greenlight: #5cde6d;
+  --whitegreen: #eaf1ea;
 
-	--yellowdark: #E69100;
-	--yellow: #FBBC04;
-	--yellowlight: #FFD5527;
-	--whiteyellow: #F2EFE0;
+  --yellowdark: #e69100;
+  --yellow: #fbbc04;
+  --yellowlight: #FFD5527;
+  --whiteyellow: #f2efe0;
 
-	--reddark: #C52A28;
-	--red: #E74639;
-	--redlight: #FF7DB0;
-	--whitered: #F2E6E6;
+  --reddark: #c52a28;
+  --red: #e74639;
+  --redlight: #ff7db0;
+  --whitered: #f2e6e6;
 
-	--graydark: #3A4F42;
-	--gray: #5F6468;
-	--graylight: #807F85;
-	--whitegray: #E8EAED;
+  --graydark: #3a4f42;
+  --gray: #5f6468;
+  --graylight: #807f85;
+  --whitegray: #e8eaed;
 
-    /* Font Sizes */
-    --fs-title: 2.5rem;
-    --fs-title2: 2rem;
-    --fs-headline: 1.5rem;
-    --fs-subheadline: 1.25rem;
-    --fs-body: 1rem;
-    --fs-footer: 0.875rem;
-    --fs-caption: 0.75rem;
+  /* Font Sizes */
+  --fs-title: 2.5rem;
+  --fs-title2: 2rem;
+  --fs-headline: 1.5rem;
+  --fs-subheadline: 1.25rem;
+  --fs-body: 1rem;
+  --fs-footer: 0.875rem;
+  --fs-caption: 0.75rem;
 
-    /* Font Weights */
-    --fw-bold: 700;
-    --fw-medium: 500;
-    --fw-regular: 400;
-    --fw-light: 300;
+  /* Font Weights */
+  --fw-bold: 700;
+  --fw-medium: 500;
+  --fw-regular: 400;
+  --fw-light: 300;
 
-    /* Page Margin */
-    --page-margin: 5%;
+  /* Page Margin */
+  --page-margin: 5%;
 
-    /* Button Paddings */
-    --btn-padding-y: 18px; /* góra-dół */
-    --btn-padding-x: 40px; /* lewo-prawo */
-    --btn-padding: var(--btn-padding-y) var(--btn-padding-x);
+  /* Button Paddings */
+  --btn-padding-y: 18px; /* góra-dół */
+  --btn-padding-x: 40px; /* lewo-prawo */
+  --btn-padding: var(--btn-padding-y) var(--btn-padding-x);
 
-    /* Border Radius */
-    --radius-main: 30px;
+  /* Border Radius */
+  --radius-main: 30px;
+
+  /* light mode */
+  --bg-main: var(--whitegray);
+  --text-main: var(--gray);
+}
+
+.dark {
+  --bg-main: var(--gray);
+  --text-main: var(--white);
 }
 
 html,
@@ -67,7 +76,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 
 * {
   box-sizing: border-box;

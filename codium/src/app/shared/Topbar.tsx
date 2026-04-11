@@ -1,6 +1,7 @@
 import { Box, IconButton, Typography } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Image from "next/image";
+import { ThemeToggle } from "./ThemeToggle";
 
 interface TopbarProps {
   menuButtonCallback: () => void;
@@ -12,6 +13,7 @@ export default function Topbar({ menuButtonCallback }: TopbarProps) {
       sx={{
         display: "flex",
         flexDirection: "row",
+        position:"fixed",
         width: "100%",
         py:"1rem",
         px:"2rem",
@@ -39,6 +41,7 @@ export default function Topbar({ menuButtonCallback }: TopbarProps) {
         Codium
       </Typography>
 
+      <ThemeToggle/>
       <Image alt="gdg_logo" src={"/gdg_logo.svg"} width={56} height={56} />
     </Box>
   );

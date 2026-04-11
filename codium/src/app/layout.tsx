@@ -8,6 +8,7 @@ import { StyledEngineProvider } from "@mui/material/styles";
 
 import "./globals.css";
 import Topbar from "./shared/Topbar";
+import { ThemeProvider } from "./shared/ThemeProvider";
 
 const firaCode = Fira_Code({
   subsets: ["latin", "latin-ext"],
@@ -24,11 +25,22 @@ export default function RootLayout({
   return (
     <html lang="pl" className={firaCode.variable}>
       <body>
-        <StyledEngineProvider injectFirst>
-          <Topbar menuButtonCallback={() => setOpen(true)}/>
-          <MainDrawer state={open} setState={setOpen} isLoggedIn={isLoggedIn} />
-          {children}
-        </StyledEngineProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <StyledEngineProvider injectFirst>
+            <Topbar menuButtonCallback={() => setOpen(true)} />
+            <MainDrawer
+              state={open}
+              setState={setOpen}
+              isLoggedIn={isLoggedIn}
+            />
+            {children}
+          </StyledEngineProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
