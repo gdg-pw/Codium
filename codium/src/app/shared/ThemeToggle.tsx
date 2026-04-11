@@ -26,7 +26,11 @@ export function ThemeToggle() {
       );
 
     return (
-      <IconButton size="large" disableRipple onClick={switchTheme}>
+      <IconButton size="large" disableRipple onClick={switchTheme}
+        sx={{
+          color: "var(--text-main)"
+        }}
+        >
         {icon}
       </IconButton>
     );

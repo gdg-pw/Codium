@@ -1,7 +1,7 @@
 .container {
   min-height: 100vh;
   background: var(--bg-main);
-  color: #000000;
+  color: var(--text-main);
   display: flex;
   flex-direction: column;
   padding: 0 5%;
@@ -45,7 +45,7 @@
 }
 
 .navLink {
-  color: #333333 !important;
+  color: var(--text-main) !important;
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 600;
@@ -123,13 +123,14 @@
   line-height: 1.1 !important;
   margin-bottom: 20px !important;
   font-weight: 700 !important;
+  color: var(--text-main) !important;
 }
 
 .subtitle {
   font-size: 1.2rem !important;
   font-weight: 400 !important;
   margin-bottom: 40px !important;
-  color: #333333 !important;
+  color: var(--text-main) !important;
 }
 
 .heroImage {
@@ -156,7 +157,7 @@
 }
 
 .socialItem:hover .socialDesc {
-  color: #000000;
+  color: var(--text-main);
 }
 
 .socialLogoPlaceholder {
@@ -166,7 +167,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #132057;
+  color: var(--text-main);
+  background-color: var(--bg-main);
   font-weight: bold;
   font-size: 1.2rem;
   overflow: hidden;
@@ -179,7 +181,7 @@
 
 .socialDesc {
   font-size: 0.85rem;
-  color: #333333;
+  color: var(--text-main);
   line-height: 1.4;
   max-width: 150px;
   transition: color 0.2s;
@@ -222,7 +224,7 @@
   font-weight: 700 !important;
   text-align: center;
   margin-bottom: 50px !important;
-  color: var(--gray); 
+  color: var(--text-main); 
 }
 
 .featuresSection {
@@ -252,7 +254,7 @@
 
 .featureCardBackground{
   padding: 20px;
-  background: var(--white);
+  background: var(--bg-card);
   border-radius: var(--radius-main);
 
   z-index: 0;
@@ -304,7 +306,7 @@
 }
 
 .iconPlaceholder {
-  color: var(--bluedark);
+  color: var(--text-main);
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
@@ -313,11 +315,11 @@
 .featureTitle {
   font-weight: 700 !important;
   margin-bottom: 10px !important;
-  color: #000;
+  color: var(--text-main);
 }
 
 .featureDesc {
-  color: var(--gray);
+  color: var(--text-main);
   line-height: 1.6;
 }
 
@@ -329,7 +331,7 @@
   right: 50%;
   margin-left: -50vw;
   margin-right: -50vw;
-  background-color: var(--white);
+  background-color: var(--bg-main);
   overflow: hidden;
 }
 
@@ -352,8 +354,8 @@
   width: 350px;
   height: 250px;
   flex-shrink: 0; 
-  background-color: var(--whitegray);
-  color: var(--graylight);
+  background-color: var(--bg-main);
+  color: var(--text-main);
   font-weight: bold;
   font-size: 1.2rem;
   margin: 0 15px;

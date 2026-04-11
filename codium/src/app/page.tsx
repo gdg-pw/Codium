@@ -1,12 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { Box, Typography, Button, Stack, Link, List } from "@mui/material";
+import { Box, Typography, Button, Stack, List } from "@mui/material";
 import Footer from "./shared/Footer";
 import styles from "./page.module.css";
 import GradientLine from "./shared/GradientLine";
 import { useRouter } from "next/navigation";
-import { Abc, AutoStories, Code, PhoneIphone, Verified, VideogameAsset } from "@mui/icons-material";
+import { AutoStories, Code, PhoneIphone, VideogameAsset } from "@mui/icons-material";
 import { ReactElement } from "react";
 
 interface SocialLogoButton {
@@ -76,7 +76,7 @@ export default function LandingPage() {
     );
   };
 
-  const lorem = "Lorem ipsum, dolor sit amet consectetur adipisicing elit. ";
+  const lorem = "Lorem ipsum, dolor sit amet consectetur elit. ";
   const cardContent: CardContent[] = [
     {
       icon: <AutoStories fontSize="inherit" className={styles.iconPlaceholder} />,

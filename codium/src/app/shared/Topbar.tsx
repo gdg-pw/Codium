@@ -1,48 +1,26 @@
-import { Box, IconButton, Typography } from "@mui/material";
+import {Box, IconButton, Typography} from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import Image from "next/image";
-import { ThemeToggle } from "./ThemeToggle";
+import {ThemeToggle} from "./ThemeToggle";
+import styles from "./Topbar.module.css";
 
 interface TopbarProps {
-  menuButtonCallback: () => void;
+    menuButtonCallback: () => void;
 }
 
-export default function Topbar({ menuButtonCallback }: TopbarProps) {
-  return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        position:"fixed",
-        width: "100%",
-        py:"1rem",
-        px:"2rem",
-        gap: "1.5rem",
+export default function Topbar({menuButtonCallback}: TopbarProps) {
+    return (
+        <Box className={styles.topbar}>
+            <IconButton onClick={menuButtonCallback}>
+                <MenuIcon className={styles.menuIcon} />
+            </IconButton>
 
-        bgcolor: "var(--white)",
+            <Typography variant="h5" className={styles.title}>
+                Codium
+            </Typography>
 
-        zIndex: 1000,
-      }}
-    >
-      <IconButton onClick={menuButtonCallback}>
-        <MenuIcon sx={{ fontSize: "2.5rem", color: "var(--gray)" }} />
-      </IconButton>
-
-      <Typography
-        variant="h5"
-        sx={{
-          fontSize: "var(--fs-title2)",
-          fontWeight: "var(--fw-medium)",
-          alignContent: "center",
-          color: "black",
-          mr: "auto",
-        }}
-      >
-        Codium
-      </Typography>
-
-      <ThemeToggle/>
-      <Image alt="gdg_logo" src={"/gdg_logo.svg"} width={56} height={56} />
-    </Box>
-  );
+            <ThemeToggle/>
+            <Image alt="gdg_logo" src={"/gdg_logo.svg"} width={56} height={56}/>
+        </Box>
+    );
 }

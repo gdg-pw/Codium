@@ -22,7 +22,7 @@
   --redlight: #ff7db0;
   --whitered: #f2e6e6;
 
-  --graydark: #3a4f42;
+  --graydark: #424242;
   --gray: #5f6468;
   --graylight: #807f85;
   --whitegray: #e8eaed;
@@ -55,12 +55,16 @@
 
   /* light mode */
   --bg-main: var(--whitegray);
+  --bg-card: var(--white);
   --text-main: var(--gray);
+  --text-secondary: var(--graylight);
 }
 
 .dark {
-  --bg-main: var(--gray);
+  --bg-main: var(--graydark);
+  --bg-card: var(--gray);
   --text-main: var(--white);
+  --text-secondary: var(--graylight);
 }
 
 html,

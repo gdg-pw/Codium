@@ -24,7 +24,8 @@ export default function RootLayout({
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
-    <html lang="pl" className={firaCode.variable}>
+      // Hydration Error caused by theme changing. Should be suppressed
+    <html lang="pl" className={firaCode.variable} suppressHydrationWarning>
       <body>
         <ThemeProvider
           attribute="class"

@@ -10,7 +10,7 @@ export default function Footer() {
     <Box sx={{ textAlign: "center"}}>
       <Typography
         variant="caption"
-        sx={{ color:   "#555" }}
+        sx={{ color:   "var(--text-secondary)" }}
       >
         Codium © 2026
       </Typography>
@@ -18,14 +18,14 @@ export default function Footer() {
         <Link
           href="/privacy"
           variant="caption"
-          sx={{ mr: 2, color: "#444" }}
+          sx={{ mr: 2, color: "var(--text-secondary)" }}
         >
           Privacy
         </Link>
         <Link
           href="/terms"
           variant="caption"
-          sx={{ color: "#444" }}
+          sx={{ color: "var(--text-secondary)" }}
         >
           Terms
         </Link>
