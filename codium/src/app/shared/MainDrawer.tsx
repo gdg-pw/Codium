@@ -1,4 +1,4 @@
-import {useState} from "react";
+import React, {JSX, useState} from "react";
 import {useRouter} from "next/navigation";
 
 import {
@@ -23,12 +23,14 @@ import {
     Group,
     Home,
     GitHub,
+    AccountCircle,
 } from "@mui/icons-material";
 import WidgetsIcon from "@mui/icons-material/Widgets";
 import SportsEsportsIcon from "@mui/icons-material/SportsEsports";
 import Image from "next/image";
 
 import styles from "./MainDrawer.module.css";
+import {AppRouterInstance} from "next/dist/shared/lib/app-router-context.shared-runtime";
 
 interface MainDrawerProps {
     state: boolean,
@@ -50,18 +52,18 @@ const initialOpen: OpenMenusHashMap = {};
 
 const MainDrawer = ({state, setState, isLoggedIn}: MainDrawerProps) => {
 
-    const router = useRouter();
+    const router : AppRouterInstance = useRouter();
 
     const [open, setOpen] = [state, setState];
     const [openMenus, setOpenMenus] = useState<OpenMenusHashMap>(initialOpen);
 
-    const handleToggle = (label: string) => {
-        setOpenMenus((prev) => ({...prev, [label]: !prev[label]}));
+    const handleToggle : (label:string) => void = (label: string) => {
+        setOpenMenus((prev: OpenMenusHashMap) => ({...prev, [label]: !prev[label]}));
     };
 
     const renderMenuItems = (items: MenuItem[], nested: boolean = false) =>
         items.map(({label, icon: Icon, onClick, children}: MenuItem, index: number) => (
-            <div key={label}>
+            <Box key={label}>
                 {!nested && index !== 0 && (
                     <Divider variant="middle" component="li" sx={{my: "0.5rem", borderColor: "var(--text-secondary)" }}/>
                 )}
@@ -96,13 +98,13 @@ const MainDrawer = ({state, setState, isLoggedIn}: MainDrawerProps) => {
                         </List>
                     </Collapse>
                 )}
-            </div>
+            </Box>
         ));
 
 
-    const logButton = () => {
-        const text = isLoggedIn ? "Logout" : "Login";
-        const logButtonHandler = isLoggedIn
+    const logButton : () => JSX.Element = () => {
+        const text: "Logout" | "Login" = isLoggedIn ? "Logout" : "Login";
+        const logButtonHandler : () => void = isLoggedIn
             ? () => {
                 /* logout logic */
                 setOpen(false);
@@ -124,6 +126,24 @@ const MainDrawer = ({state, setState, isLoggedIn}: MainDrawerProps) => {
             </Button>
         );
     };
+
+    const accountButton : () => JSX.Element | null = () => {
+        if (!isLoggedIn) return null;
+        return(
+            <ListItemButton
+                className={`${styles.listItemButton} ${styles.accountButton}`}
+                onClick={() => {
+                    router.push("/"); // Placeholder for account page
+                    setOpen(false);
+                }}
+            >
+                <ListItemIcon sx={{color: "inherit"}}>
+                    <AccountCircle sx={{fontSize: "2rem", color: "inherit"}}/>
+                </ListItemIcon>
+                <ListItemText primary="My Account"/>
+            </ListItemButton>
+        );
+    }
 
     const menuItems: MenuItem[] = [
         {
@@ -177,7 +197,10 @@ const MainDrawer = ({state, setState, isLoggedIn}: MainDrawerProps) => {
             <Box className={styles.box}>
                 <Image width={150} height={90} src={"/gdg_logo.svg"} alt="GDG Logo"/>
                 <List sx={{width: "100%"}}>{renderMenuItems(menuItems)}</List>
-                {logButton()}
+                <Box className={styles.bottomSection}>
+                    {accountButton()}
+                    {logButton()}
+                </Box>
             </Box>
         </Drawer>
     );
