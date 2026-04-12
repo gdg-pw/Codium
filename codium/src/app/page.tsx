@@ -1,19 +1,17 @@
-"use client";
-
 import Image from "next/image";
 import { Box, Typography, Button, Stack, List } from "@mui/material";
 import Footer from "./shared/Footer";
 import styles from "./page.module.css";
 import GradientLine from "./shared/GradientLine";
-import { useRouter } from "next/navigation";
 import { AutoStories, Code, PhoneIphone, VideogameAsset } from "@mui/icons-material";
 import { ReactElement } from "react";
+import Link from "next/link";
 
 interface SocialLogoButton {
   label: string;
   imageSrc: string;
   alt: string;
-  onClick: () => void;
+  href: string;
 }
 
 interface CardContent {
@@ -23,12 +21,17 @@ interface CardContent {
 }
 
 export default function LandingPage() {
-  const router = useRouter();
-
   const renderLogoButtons = (items: SocialLogoButton[]) =>
     items.map(
-      ({ label, imageSrc, alt, onClick }: SocialLogoButton, index: number) => (
-        <Button onClick={onClick} className={styles.socialItem} key={index}>
+      ({ label, imageSrc, alt, href }: SocialLogoButton, index: number) => (
+        <Button 
+          component="a"
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={styles.socialItem} 
+          key={index}
+        >
           <Box className={styles.socialLogoPlaceholder}>
             <Image src={imageSrc} width={50} height={50} alt={alt} />
           </Box>
@@ -61,7 +64,7 @@ export default function LandingPage() {
     );
   };
 
-  const renderPhotos = (items: any) => {
+  const renderPhotos = (items: number[]) => {
     return (
       <Box className={styles.carouselContainer}>
         <Box className={styles.carouselTrack}>
@@ -106,25 +109,19 @@ export default function LandingPage() {
       label: "Instagram",
       alt: "ig_logo",
       imageSrc: "/ig_logo.svg",
-      onClick: () => {
-        router.push("https://www.instagram.com/gdg_pw/");
-      },
+      href: "https://www.instagram.com/gdg_pw/",
     },
     {
       label: "Github",
       alt: "gh_logo",
       imageSrc: "/github_logo.svg",
-      onClick: () => {
-        router.push("https://github.com/gdg-pw");
-      },
+      href: "https://github.com/gdg-pw",
     },
     {
       label: "GDG",
       alt: "gdg_logo",
       imageSrc: "/gdg_logo.svg",
-      onClick: () => {
-        router.push("https://gdg.community.dev/");
-      },
+      href: "https://gdg.community.dev/",
     },
   ];
 
@@ -138,12 +135,14 @@ export default function LandingPage() {
           <Typography variant="h1" className={styles.title}>
             Learn how to code with corgi!
           </Typography>
-          <Button
-            variant="contained"
-            className={`${styles.btn} ${styles.btnLarge}`}
-          >
-            Play
-          </Button>
+          <Link href="/" style={{ textDecoration: "none" }}>
+            <Button
+              variant="contained"
+              className={`${styles.btn} ${styles.btnLarge}`}
+            >
+              Play
+            </Button>
+          </Link>
         </Box>
 
         {/* Corgi  */}

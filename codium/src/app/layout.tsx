@@ -1,13 +1,9 @@
-"use client";
-
 import { Fira_Code } from "next/font/google";
-import { useState } from "react";
-
-import MainDrawer from "@/app/shared/MainDrawer";
 import { StyledEngineProvider } from "@mui/material/styles";
+import type { Metadata } from "next";
 
 import "./globals.css";
-import Topbar from "./shared/Topbar";
+import Navigation from "./shared/Navigation";
 import { ThemeProvider } from "./shared/ThemeProvider";
 
 const firaCode = Fira_Code({
@@ -16,15 +12,15 @@ const firaCode = Fira_Code({
   display: "swap",
 });
 
+export const metadata: Metadata = {
+  title: "Codium - Learn to code with corgi!",
+  description: "Codium is a fun and interactive way to learn coding.",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
-  const [open, setOpen] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
   return (
-      // Hydration Error caused by theme changing. Should be suppressed
     <html lang="pl" className={firaCode.variable} suppressHydrationWarning>
       <body>
         <ThemeProvider
@@ -34,12 +30,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <StyledEngineProvider injectFirst>
-            <Topbar menuButtonCallback={() => setOpen(true)} />
-            <MainDrawer
-              state={open}
-              setState={setOpen}
-              isLoggedIn={isLoggedIn}
-            />
+            <Navigation />
             {children}
           </StyledEngineProvider>
         </ThemeProvider>
