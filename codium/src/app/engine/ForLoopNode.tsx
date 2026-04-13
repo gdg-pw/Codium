@@ -1,6 +1,7 @@
 import React from 'react';
 import { Handle, Position, type NodeProps, type Node } from '@xyflow/react';
 import { Card, Box, Typography } from '@mui/material';
+import styles from './css/ForLoopNode.module.css';
 
 export type ForLoopData = {
   startIndex?: number;
@@ -8,63 +9,54 @@ export type ForLoopData = {
   label?: string;
 };
 
+interface PortConfig {
+  id: string;
+  label: string;
+  type: 'target' | 'source';
+  position: Position;
+  top: number;
+  color: string;
+}
+
 export default function ForLoopNode({ data }: NodeProps<Node<ForLoopData>>) {
-  return (
-    <Card 
-      sx={{ 
-        minWidth: 200, 
-        overflow: 'visible', 
-        borderRadius: '30px',
-        border: '2px solid var(--yellowdark)',
-        bgcolor: 'var(--white)',
-        boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
-      }}
-    >
-      {/* HEADER */}
-      <Box 
-        sx={{ 
-          bgcolor: 'var(--yellow)', 
-          py: 1, 
-          textAlign: 'center', 
-          cursor: 'grab',
-          borderTopLeftRadius: '28px', 
-          borderTopRightRadius: '28px' 
-        }}
-      >
+  const ports: PortConfig[] = [
+    { id: 'execute', label: 'EXEC', type: 'target', position: Position.Left, top: 20, color: 'var(--gray)' },
+    { id: 'startIndex', label: 'START', type: 'target', position: Position.Left, top: 50, color: 'var(--yellowdark)' },
+    { id: 'endIndex', label: 'END', type: 'target', position: Position.Left, top: 80, color: 'var(--yellowdark)' },
+    { id: 'loopBody', label: 'LOOP', type: 'source', position: Position.Right, top: 20, color: 'var(--gray)' },
+    { id: 'currentIndex', label: 'i', type: 'source', position: Position.Right, top: 50, color: 'var(--yellowdark)' },
+    { id: 'completed', label: 'COMPLETED', type: 'source', position: Position.Right, top: 80, color: 'var(--gray)' },
+  ];
+
+  const renderPorts = (items: PortConfig[]) => {
+    return items.map((port: PortConfig, index: number) => (
+      <React.Fragment key={index}>
+        <Handle 
+          type={port.type} 
+          position={port.position} 
+          id={port.id} 
+          className={styles.handle}
+          style={{ top: `${port.top}%`, backgroundColor: port.color }} 
+        />
         <Typography 
-          sx={{ 
-            fontFamily: "'Fira Code', monospace", 
-            fontSize: '0.875rem',
-            fontWeight: 700,
-            color: 'var(--graydark)'
-          }}
+          className={`${styles.label} ${port.position === Position.Left ? styles.labelLeft : styles.labelRight}`}
+          style={{ top: `${port.top - 10}%` }}
         >
+          {port.label}
+        </Typography>
+      </React.Fragment>
+    ));
+  };
+
+  return (
+    <Card className={styles.card}>
+      <Box className={styles.header}>
+        <Typography className={styles.title}>
           FOR
         </Typography>
       </Box>
-      
-      {/* BODY */}
-      <Box sx={{ position: 'relative', height: 120, my: 1 }}>
-        
-        {/* IN */}
-        <Handle type="target" position={Position.Left} id="execute" style={{ top: '20%', background: 'var(--gray)', border: 'none' }} />
-        <Typography sx={{ position: 'absolute', left: 16, top: '10%', fontFamily: "'Fira Code', monospace", fontSize: '0.75rem', fontWeight: 500, color: 'var(--graydark)' }}>EXEC</Typography>
-
-        <Handle type="target" position={Position.Left} id="startIndex" style={{ top: '50%', background: 'var(--yellowdark)', border: 'none' }} />
-        <Typography sx={{ position: 'absolute', left: 16, top: '40%', fontFamily: "'Fira Code', monospace", fontSize: '0.75rem', fontWeight: 500, color: 'var(--graydark)' }}>START</Typography>
-
-        <Handle type="target" position={Position.Left} id="endIndex" style={{ top: '80%', background: 'var(--yellowdark)', border: 'none' }} />
-        <Typography sx={{ position: 'absolute', left: 16, top: '70%', fontFamily: "'Fira Code', monospace", fontSize: '0.75rem', fontWeight: 500, color: 'var(--graydark)' }}>END</Typography>
-
-        {/* OUT */}
-        <Handle type="source" position={Position.Right} id="loopBody" style={{ top: '20%', background: 'var(--gray)', border: 'none' }} />
-        <Typography sx={{ position: 'absolute', right: 16, top: '10%', fontFamily: "'Fira Code', monospace", fontSize: '0.75rem', fontWeight: 500, color: 'var(--graydark)' }}>LOOP</Typography>
-
-        <Handle type="source" position={Position.Right} id="currentIndex" style={{ top: '50%', background: 'var(--yellowdark)', border: 'none' }} />
-        <Typography sx={{ position: 'absolute', right: 16, top: '40%', fontFamily: "'Fira Code', monospace", fontSize: '0.75rem', fontWeight: 500, color: 'var(--graydark)' }}>i</Typography>
-
-        <Handle type="source" position={Position.Right} id="completed" style={{ top: '80%', background: 'var(--gray)', border: 'none' }} />
-        <Typography sx={{ position: 'absolute', right: 16, top: '70%', fontFamily: "'Fira Code', monospace", fontSize: '0.75rem', fontWeight: 500, color: 'var(--graydark)' }}>COMPLETED</Typography>
+      <Box className={styles.body}>
+        {renderPorts(ports)}
       </Box>
     </Card>
   );

@@ -1,14 +1,14 @@
 .card {
-  min-width: 160px;
+  min-width: 200px;
   overflow: visible;
   border-radius: 30px;
-  border: 2px solid var(--blue);
+  border: 2px solid var(--yellowdark);
   background-color: var(--white);
   box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 .header {
-  background-color: var(--blue);
+  background-color: var(--yellow);
   padding: 8px 0;
   text-align: center;
   cursor: grab;
@@ -19,23 +19,26 @@
 .title {
   font-size: 0.875rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--graydark);
 }
 
 .body {
-  padding: 16px;
   position: relative;
+  height: 120px;
+  margin-top: 8px;
+  margin-bottom: 8px;
 }
 
 .handle {
-  background-color: var(--bluedark) !important;
   border: none !important;
 }
 
-.select {
-  font-size: 1rem;
+.label {
+  position: absolute;
+  font-size: 0.75rem;
   font-weight: 500;
-  color: var(--bluedark);
-  background-color: var(--whiteblue);
-  border-radius: 30px;
+  color: var(--graydark);
 }
+
+.labelLeft { left: 16px; }
+.labelRight { right: 16px; }
