@@ -1,0 +1,138 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--page-margin);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 1.5rem;
+}
+
+.homeBtn {
+  border-radius: var(--radius-main) !important;
+  text-transform: capitalize !important;
+  padding: var(--btn-padding) !important;
+  font-size: var(--fs-body) !important;
+  font-weight: var(--fw-medium) !important;
+  background-color: var(--blue) !important;
+  color: var(--white) !important;
+}
+.homeBtn:hover {
+  background-color: var(--bluedark) !important;
+}
+
+.logoSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  text-align: center;
+}
+
+.title {
+  font-size: var(--fs-title) !important;
+  font-weight: var(--fw-bold) !important;
+  margin-top: 0.5rem !important;
+  color: var(--gray);
+}
+
+.subtitle {
+  font-size: var(--fs-body) !important;
+  font-weight: var(--fw-regular) !important;
+  color: var(--gray);
+}
+
+.loginCard {
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem !important;
+  border-radius: var(--radius-main) !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.cardTitle {
+  text-align: center;
+  font-size: var(--fs-headline) !important;
+  font-weight: var(--fw-bold) !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.inputField {
+  margin-bottom: 1rem !important;
+}
+
+.inputField > div {
+  border-radius: var(--radius-main) !important;
+}
+
+.btn {
+  border-radius: var(--radius-main) !important;
+  text-transform: capitalize !important;
+  padding: var(--btn-padding) !important;
+  font-size: var(--fs-body) !important;
+  font-weight: var(--fw-bold) !important;
+}
+
+.btnSubmit {
+  margin-top: 1rem !important;
+  margin-bottom: 0.75rem !important;
+  background-color: var(--blue) !important;
+  color: var(--white) !important;
+}
+.btnSubmit:hover {
+  background-color: var(--bluedark) !important;
+}
+
+.btnGoogle {
+  background-color: var(--blue) !important;
+  color: var(--white) !important;
+  margin-bottom: 1rem !important;
+}
+.btnGoogle:hover {
+  background-color: var(--bluedark) !important;
+}
+
+.authSwitch {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-size: var(--fs-footer) !important;
+  color: var(--graydark);
+}
+
+.authLink {
+  cursor: pointer;
+  font-weight: var(--fw-bold) !important;
+  margin-left: 4px;
+  color: var(--blue) !important;
+}
+.authLink:hover {
+  color: var(--bluedark) !important;
+}
+
+.gradientWrapper {
+  width: 100%;
+  max-width: 420px;
+  margin-bottom: 2rem;
+}
+
+.footerWrapper {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}

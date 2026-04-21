@@ -3,8 +3,12 @@ node_modules/
 
 # Build (wynik budowania aplikacji)
 .next/
+.gitignore
 out/
 build/
+
+# WebStorm IDE
+.idea/
 
 # Środowisko lokalne (sekrety, klucze API)
 *.env

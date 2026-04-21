@@ -1,0 +1,24 @@
+.topbar {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  width: 100%;
+  padding: 1rem 2rem;
+  gap: 1.5rem;
+  background-color: var(--bg-main);
+  border-bottom: 1px solid var(--bg-card);
+  z-index: 1000;
+}
+
+.menuIcon {
+  font-size: 2.5rem !important;
+  color: var(--text-main) !important;
+}
+
+.title {
+  font-size: var(--fs-title2) !important;
+  font-weight: var(--fw-medium) !important;
+  color: var(--text-main) !important;
+  align-content: center;
+  margin-right: auto;
+}

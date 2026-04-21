@@ -1,8 +1,7 @@
 .container {
   min-height: 100vh;
-  background: #E8EAED;
-  color: #000000;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-main);
   display: flex;
   flex-direction: column;
   padding: 0 5%;
@@ -46,7 +45,7 @@
 }
 
 .navLink {
-  color: #333333 !important;
+  color: var(--text-main) !important;
   text-decoration: none;
   font-size: 0.85rem;
   font-weight: 600;
@@ -124,13 +123,14 @@
   line-height: 1.1 !important;
   margin-bottom: 20px !important;
   font-weight: 700 !important;
+  color: var(--text-main) !important;
 }
 
 .subtitle {
   font-size: 1.2rem !important;
   font-weight: 400 !important;
   margin-bottom: 40px !important;
-  color: #333333 !important;
+  color: var(--text-main) !important;
 }
 
 .heroImage {
@@ -144,14 +144,12 @@
   display: flex;
   justify-content: flex-end;
   align-items: flex-end;
-  padding: 40px 0;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  padding: 20px 0;
   margin-bottom: 40px;
   gap: 20px;
 }
 
 .socialItem {
-  display: flex;
   align-items: center;
   gap: 15px;
   cursor: pointer;
@@ -159,7 +157,7 @@
 }
 
 .socialItem:hover .socialDesc {
-  color: #000000;
+  color: var(--text-main);
 }
 
 .socialLogoPlaceholder {
@@ -169,7 +167,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #132057;
+  color: var(--text-main);
+  background-color: var(--bg-main);
   font-weight: bold;
   font-size: 1.2rem;
   overflow: hidden;
@@ -182,7 +181,7 @@
 
 .socialDesc {
   font-size: 0.85rem;
-  color: #333333;
+  color: var(--text-main);
   line-height: 1.4;
   max-width: 150px;
   transition: color 0.2s;
@@ -217,5 +216,158 @@
   .socialItem {
     min-width: 100%;
     justify-content: center;
+  }
+}
+
+.sectionTitle {
+  font-size: 2.5rem !important;
+  font-weight: 700 !important;
+  text-align: center;
+  margin-bottom: 50px !important;
+  color: var(--text-main); 
+}
+
+.featuresSection {
+  padding: 80px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.featuresGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+  width: 100%;
+  max-width: 80%;
+}
+
+.featureCard {
+  text-align: center;
+  font-size: 100px;
+
+  transition: transform 0.3s;
+  position: relative;
+
+  z-index: 1;
+}
+
+.featureCardBackground{
+  padding: 20px;
+  background: var(--bg-card);
+  border-radius: var(--radius-main);
+
+  z-index: 0;
+}
+
+@property --angle{
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.featureCard::after, .featureCard::before{
+  --border-width: 5px;
+
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+
+  padding: var(--border-width);
+  border-radius: calc(var(--radius-main) + var(--border-width));
+  translate: -50% -50%; 
+
+  --angle: 0deg;
+  background-image: conic-gradient(from var(--angle),var(--red), var(--yellow), var(--green), var(--blue), var(--red));
+  animation: 5s spin linear infinite;
+  
+  z-index: -1;
+}
+
+@keyframes spin {
+  from{
+    --angle: 0deg;
+  }
+  to{
+    --angle: 360deg;
+  }
+}
+
+.featureCard::before{
+  filter: blur(1.5rem);
+  opacity: 0.5;
+}
+
+.featureCard:hover {
+  transform: translateY(-10px);
+}
+
+.iconPlaceholder {
+  color: var(--text-main);
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.featureTitle {
+  font-weight: 700 !important;
+  margin-bottom: 10px !important;
+  color: var(--text-main);
+}
+
+.featureDesc {
+  color: var(--text-main);
+  line-height: 1.6;
+}
+
+.carouselSection {
+  padding: 80px 0 120px 0;
+  width: 100vw; 
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  background-color: var(--bg-main);
+  overflow: hidden;
+}
+
+.carouselContainer {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+
+.carouselTrack {
+  display: flex;             
+  width: max-content;        
+  animation: scrollCarousel 20s linear infinite; 
+}
+
+.carouselImagePlaceholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  height: 250px;
+  flex-shrink: 0; 
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  font-weight: bold;
+  font-size: 1.2rem;
+  margin: 0 15px;
+  border-radius: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes scrollCarousel {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
