@@ -1,31 +1,38 @@
 'use client';
-import {Button, ButtonProps } from "@mui/material";
+import {Button, ButtonProps} from "@mui/material";
 
-export default function ActionButton(props: ButtonProps){
-    return(
+interface ActionButtonProps extends ButtonProps {
+    highlightColor?: string;
+}
+
+export default function ActionButton({highlightColor = '#1976d2', ...props}: ActionButtonProps) {
+    return (
         <div>
             <Button
-                variant={props.variant}
-                onClick={props.onClick}
                 {...props}
                 sx={{
-                    backgroundColor: '#6EA4BF',
-                    color: 'white',
-                    paddingLeft: '1.5rem',
-                    paddingRight: '1.5rem',
-                    paddingTop: '0.3rem',
-                    paddingBottom: '0.3rem',
-                    fontSize: '2rem',
-                    borderRadius: '0.6rem',
-                    fontFamily: 'JetBrains Mono',
-                    height: '3.6rem',
+                    height: '4rem',
+                    pt: '1.05rem',
+                    px: '1.5rem',
 
-                    textTransform: 'none',
-                    textAlign: 'center',
+                    color: '#000000',
+                    background: 'transparent',
+                    fontSize: '1.4rem',
+                    fontWeight: '600',
+                    textTransform: 'capitalize',
+                    fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif',
+
                     display: 'flex',
+                    alignItems: 'flex-start',
                     justifyContent: 'center',
-                    alignItems: 'center',
-                    '&:hover': {backgroundColor: '#83B7CA'}
+                    borderRadius: 8,
+
+                    transition: 'all 0.2s ease-in-out',
+                    '&:hover': {
+                        backgroundColor: '#EEEEEE',
+                        boxShadow: 'none',
+                        color: highlightColor,
+                    },
                 }}
             >
                 {props.children}

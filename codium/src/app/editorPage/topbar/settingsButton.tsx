@@ -17,14 +17,16 @@ export default function SettingsButton() {
                     padding: '0',
                     width: '3.6rem',
                     height: '3.6rem',
-                    backgroundColor: '#6EA4BF',
+                    backgroundColor: 'transparent',
                     borderRadius: '0.6rem',
                     display: 'flex',
                     justifyContent: 'center',
                     alignItems: 'center',
                     '&:hover': {
-                        backgroundColor: '#83B7CA'
-                    }
+                        backgroundColor: '#EEEEEE',
+                        boxShadow: 'none',
+                        color: 'black',
+                    },
                 }}>
                 <Image
                     src={settingsIcon}
