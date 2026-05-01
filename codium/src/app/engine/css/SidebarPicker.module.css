@@ -1,35 +1,128 @@
 .sidebarPicker {
     height: 100%;
-    width: 10%;
     left: 0;
     top: 0;
     position: absolute;
-    overflow-y: auto;
-    background-color: #cccccc;
     display: flex;
+    overflow-y: hidden;
+
+    background-color: var(--engine-bg-main);
+    color: var(--engine-text-muted);
+    border-right: 1px solid var(--engine-border);
+    box-shadow: var(--engine-shadow);
+
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+    z-index: 10;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+
+.sidebarPicker.resizing {
+    user-select: none;
 }
 
 .tabBar {
     display: flex;
     flex-direction: column;
-    background: #787878;
-    max-width: 40%;
+    align-items: center;
+    background: var(--engine-bg-secondary);
+    min-width: 80px;
+    max-width: 80px;
+    padding: 20px 0;
+    gap: 12px;
+    border-right: 1px solid var(--engine-border);
+    z-index: 2;
 }
 
 .tabButton {
-    text-align: center;
-    font-weight: bold;
-    color: black;
-    height: 5%;
+    position: relative;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+
+    background: transparent;
+    border: none;
+    border-radius: var(--engine-radius);
+    color: var(--engine-text-muted);
+    cursor: pointer;
+
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tabLabel {
+    font-weight: 600;
+    font-size: 0.65rem;
+    letter-spacing: 0.5px;
+}
+
+.tabButton:hover {
+    background: var(--engine-bg-hover);
+    color: var(--engine-text-active);
+    transform: translateY(-2px);
 }
 
 .tabButton.active {
-    border-bottom: 2px solid #007acc;
-    background: #a1a1a1;
+    background: var(--engine-bg-active);
+    color: var(--engine-text-active);
+    box-shadow: var(--engine-shadow);
+    transform: scale(1.05);
 }
 
 .tabContent {
-    margin-top: 10px;
-    width: 100%;
+    flex: 1;
+    height: 100%;
+    padding: 20px;
     overflow-y: auto;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--engine-bg-hover) transparent;
+}
+
+.tabContent::-webkit-scrollbar {
+    width: 6px;
+}
+.tabContent::-webkit-scrollbar-thumb {
+    background-color: var(--engine-bg-hover);
+    border-radius: 10px;
+}
+
+.itemGrid {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.resizer {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+    width: 8px;
+    cursor: ew-resize;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resizer::after {
+    content: '';
+    display: block;
+    height: 40px;
+    width: 4px;
+    background-color: var(--engine-border);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.resizer:hover::after,
+.sidebarPicker.resizing .resizer::after {
+    height: 100%;
+    width: 4px;
+    background-color: var(--engine-accent);
+    box-shadow: 0 0 8px var(--engine-accent);
 }

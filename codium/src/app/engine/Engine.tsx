@@ -1,6 +1,6 @@
 "use client";
 //======================================================================================
-import React, {useState, useCallback, useRef} from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import {
     ReactFlow,
     applyNodeChanges,
@@ -13,29 +13,33 @@ import '@xyflow/react/dist/style.css';
 import { Background, BackgroundVariant } from '@xyflow/react';
 //-------------------------------------------------------
 import ExampleNode from '@/app/engine/components/node/items/ExampleNode';
-import AnimatedEdge from "@/app/engine/components/AnimatedEdge";
+import AnimatedEdge from "@/app/engine/components/WireEdge";
 import SidebarPicker from "@/app/engine/SidebarPicker";
 import NodeInspector from "@/app/engine/components/node/NodeInspector";
 //-------------------------------------------------------
 import style from "@/app/engine/css/Engine.module.css"
-import {initialEdges, initialNodes} from "@/app/engine/TestLevel";
+import "@/app/engine/css/theme.module.css";
+import { initialEdges, initialNodes } from "@/app/engine/TestLevel";
+import WireEdge from "@/app/engine/components/WireEdge";
 //======================================================================================
 export type NodeData = {
     label: string;
     iconFile: string;
     type: string;
 }
-
+//-------------------------------------------------------
+export type ThemeType = 'light' | 'dark';
+//-------------------------------------------------------
 interface EngineProps {
     pendingNodeToAdd: NodeData | null;
     setPendingNodeToAdd: (node: NodeData | null) => void;
+    theme?: ThemeType;
 }
-
-
+//-------------------------------------------------------
 const edgeTypes = {
-    wire: AnimatedEdge,
+    wire: WireEdge,
 };
-
+//-------------------------------------------------------
 const nodeTypes = {
     test1: ExampleNode,
     gate1: ExampleNode,
@@ -45,7 +49,8 @@ const nodeTypes = {
     whatever1: ExampleNode,
 };
 //======================================================================================
-function Engine({ pendingNodeToAdd, setPendingNodeToAdd }: EngineProps) {
+//======================================================================================
+function Engine({ pendingNodeToAdd, setPendingNodeToAdd, theme = 'dark' }: EngineProps) {
     const [nodes, setNodes] = useState<Node[]>(initialNodes);
     const [edges, setEdges] = useState<Edge[]>(initialEdges);
     const { screenToFlowPosition } = useReactFlow();
@@ -80,8 +85,8 @@ function Engine({ pendingNodeToAdd, setPendingNodeToAdd }: EngineProps) {
         return node;
     }
 
-//when dragged, drop the node where mouse cursor is
-    const evtOnDrop= useCallback(
+    //when dragged, drop the node where mouse cursor is
+    const evtOnDrop = useCallback(
         (evt: React.DragEvent) => {
             evt.preventDefault();
 
@@ -105,24 +110,23 @@ function Engine({ pendingNodeToAdd, setPendingNodeToAdd }: EngineProps) {
         [screenToFlowPosition],
     );
 
-    const evtOnDragOver= (evt: React.DragEvent) => {
+    const evtOnDragOver = (evt: React.DragEvent) => {
         evt.preventDefault();
         evt.dataTransfer.dropEffect = "move";
     };
 
-
     const evtOnNodeClicked = (evt: React.MouseEvent, clickedNode: Node) => {
         evt.preventDefault();
 
-        //mark the clicked node as selected - only visually :(
         setNodes((nds) =>
             nds.map((node) => ({
                 ...node,
-
-                //TODO: this is temporary CHANGE ME LATER (I dont wanna be just a red ugly border pls🥺🥺🥺)!!!
                 style: {
                     ...node.style,
-                    border: node.id === clickedNode.id ? "5px solid red" : "",
+                    border: node.id === clickedNode.id ? "2px solid var(--engine-accent)" : "2px solid transparent",
+                    boxShadow: node.id === clickedNode.id ? "0 0 0 4px color-mix(in srgb, var(--engine-accent) 20%, transparent)" : "none",
+                    borderRadius: "12px",
+                    transition: "border 0.2s ease, box-shadow 0.2s ease"
                 },
             }))
         );
@@ -132,7 +136,14 @@ function Engine({ pendingNodeToAdd, setPendingNodeToAdd }: EngineProps) {
 
     const evtOnPaneClick = useCallback((evt: React.MouseEvent) => {
         evt.preventDefault();
-        setSelectedNode(null)
+
+        //deselect nodes
+        setNodes((nds) => nds.map((node) => ({
+            ...node,
+            style: { ...node.style, border: "2px solid transparent", boxShadow: "none" }
+        })));
+
+        setSelectedNode(null);
 
         if (pendingNodeToAdd) {
             const translatedPosition = screenToFlowPosition({
@@ -140,19 +151,18 @@ function Engine({ pendingNodeToAdd, setPendingNodeToAdd }: EngineProps) {
                 y: evt.clientY,
             });
 
-
             const node = makeFromNodeData(pendingNodeToAdd, translatedPosition);
-
             setNodes((nds) => [...nds, node]);
-
             setPendingNodeToAdd(null);
         }
 
     }, [pendingNodeToAdd, screenToFlowPosition, setNodes, setPendingNodeToAdd]);
     //-------------------------------------------------------
-    //-------------------------------------------------------
+    const dotColor = "var(--engine-grid-dots)";
+    const edgeColor = "var(--engine-edge)";
+
     return (
-        <div className={style.flow} style={{ width: '100vw', height: '100vh' }}>
+        <div className={style.flow}>
             <ReactFlow
                 //======================
                 //      DATA
@@ -170,14 +180,16 @@ function Engine({ pendingNodeToAdd, setPendingNodeToAdd }: EngineProps) {
                 //======================
                 //     APPEARANCE
                 //======================
+                colorMode={theme}
                 fitView
-                snapGrid={[20,20]}
+                snapGrid={[20, 20]}
                 snapToGrid={true}
                 defaultEdgeOptions={{
                     type: "wire",
                     animated: true,
                     style: {
-                        strokeWidth: 2
+                        strokeWidth: 2,
+                        stroke: edgeColor //theme color
                     }
                 }}
                 connectionLineType={ConnectionLineType.Step}
@@ -186,43 +198,48 @@ function Engine({ pendingNodeToAdd, setPendingNodeToAdd }: EngineProps) {
                 //======================
                 onDragOver={evtOnDragOver}
                 onDrop={evtOnDrop}
-                // onNodeContextMenu={evtOnNodeClicked}
                 onNodeClick={evtOnNodeClicked}
                 onPaneClick={evtOnPaneClick}
-                //======================
             >
                 <Background
                     variant={BackgroundVariant.Dots}
-                    gap={20}
-                    size={1}
+                    gap={24}
+                    size={2}
+                    color={dotColor}
                 />
-            {
-            //======================
-            // CONTROLS (e.g. zoom in/out)
-            //======================
-            }
-            <Controls
-                position={"bottom-right"}
-                showFitView={false}
-
-            />
+                {
+                //======================
+                // CONTROLS (e.g. zoom in/out)
+                //======================
+                }
+                <Controls
+                    position={"bottom-right"}
+                    showFitView={false}
+                    className={style.customControls}
+                />
             </ReactFlow>
+
             <NodeInspector
                 node={selectedNode}
                 setSelectedNode={setSelectedNode}
+                theme={theme}
             />
         </div>
     );
 }
+//======================================================================================
+interface GameWrapperProps {
+    theme?: ThemeType;
+}
 
-export default function GameWrapper() {
-    const [pendingNodeToAdd, setPendingNodeToAdd] = useState(null);
+export default function GameWrapper({ theme = "dark" }: GameWrapperProps) {
+    const [pendingNodeToAdd, setPendingNodeToAdd] = useState<NodeData | null>(null);
 
     return (
-        <div className={style.gameWrapper}>
-            <SidebarPicker pendingNodeToAdd={pendingNodeToAdd} setPendingNodeToAdd={setPendingNodeToAdd} />
+        <div className={`${style.gameWrapper} engine-theme-${theme}`}>
+            <SidebarPicker pendingNodeToAdd={pendingNodeToAdd} setPendingNodeToAdd={setPendingNodeToAdd} theme={theme} />
             <ReactFlowProvider>
-                <Engine pendingNodeToAdd={pendingNodeToAdd} setPendingNodeToAdd={setPendingNodeToAdd}/>
+                <Engine pendingNodeToAdd={pendingNodeToAdd} setPendingNodeToAdd={setPendingNodeToAdd} theme={theme} />
             </ReactFlowProvider>
         </div>
     )

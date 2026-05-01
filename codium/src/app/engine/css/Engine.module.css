@@ -1,10 +1,66 @@
+/*
+=========================================
+   MAIN WRAPPER
+=========================================
+*/
 .gameWrapper {
-    margin-left: 10%;
+    position: relative;
+    width: 100vw;
+    height: 100vh;
     display: flex;
+    overflow: hidden;
+    background-color: var(--engine-bg-main);
+    transition: background-color 0.4s ease;
+    font-family: system-ui, -apple-system, sans-serif;
 }
-
+/*
+=========================================
+   CANVAS
+=========================================
+*/
 .flow {
-
+    width: 100%;
+    height: 100%;
+    flex: 1;
 }
 
-
+/*
+=========================================
+   REACT FLOW CONTROLS
+=========================================
+*/
+.customControls {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+/* ------------------------------------------ */
+.customControls button {
+    background: var(--engine-bg-secondary) !important;
+    border: 1px solid var(--engine-border) !important;
+    color: var(--engine-text-main) !important;
+    border-radius: 8px !important;
+    width: 36px !important;
+    height: 36px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--engine-shadow) !important;
+    transition: all 0.2s ease !important;
+    cursor: pointer;
+}
+/* ------------------------------------------ */
+.customControls button:hover {
+    background: var(--engine-bg-hover) !important;
+    transform: translateY(-2px);
+}
+/* ------------------------------------------ */
+/* svg colors match theme color*/
+.customControls button svg {
+    fill: var(--engine-text-main) !important;
+}

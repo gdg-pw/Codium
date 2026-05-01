@@ -14,9 +14,10 @@ export default function ExampleNode({data}: NodeProps) {
 
     const style = {
                 padding: 10,
-                background: 'white',
-                border: '2px solid #222',
-                borderRadius: 8,
+                background: 'var(--engine-bg-secondary)',
+                border: '1px solid var(--engine-border)',
+                borderRadius: 'var(--engine-radius)',
+                color: 'var(--engine-text-main)',
     };
 
 
@@ -38,7 +39,7 @@ export default function ExampleNode({data}: NodeProps) {
 
             <Image src={data.iconFile} alt="Node icon" width={100} height={100} />
 
-            <div style={{ textAlign: 'center', fontSize: 12 }}>
+            <div style={{ textAlign: 'center', fontSize: 12, color: 'var(--engine-text-main)' }}>
                 {data.label}
             </div>
 

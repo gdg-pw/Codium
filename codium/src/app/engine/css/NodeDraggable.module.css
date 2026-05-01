@@ -1,14 +1,67 @@
+/*
+=========================================
+   DRAGGABLE NODE
+=========================================
+*/
 .container {
-    cursor: pointer;
-    padding-bottom: 20px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    gap: 10px;
-    background-color: #cccccc;
+    gap: 12px;
+    padding: 16px;
+    width: 100%;
+
+    background-color: var(--engine-bg-secondary);
+    border: 1px solid var(--engine-border);
+    border-radius: var(--engine-radius);
+    color: var(--engine-text-muted);
+
+    cursor: grab;
+    user-select: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .container:hover {
-    background-color: #999999;
+    background-color: var(--engine-bg-hover);
+    color: var(--engine-text-active);
+    border-color: var(--engine-accent);
+    transform: translateY(-2px);
+    box-shadow: var(--engine-shadow);
+}
+
+.container:active {
+    cursor: grabbing;
+    transform: scale(0.98);
+    box-shadow: none;
+}
+/*
+=========================================
+   SELECTED STATE (PENDING)
+=========================================
+*/
+.container.pending {
+    border-color: var(--engine-accent);
+    background-color: color-mix(in srgb, var(--engine-accent) 15%, transparent);
+    color: var(--engine-text-active);
+    box-shadow: 0 0 0 2px var(--engine-accent);
+    transform: translateY(-2px);
+}
+/*
+=========================================
+   ICONS
+=========================================
+*/
+.iconWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-align: center;
+    pointer-events: none;
 }

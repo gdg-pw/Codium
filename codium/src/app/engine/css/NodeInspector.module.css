@@ -1,12 +1,200 @@
 .container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: 100%;
+
     display: flex;
     flex-direction: column;
+    gap: 20px;
+
+    background: var(--engine-bg-main);
+    border-left: 1px solid var(--engine-border);
+    padding: 20px;
+    box-shadow: var(--engine-shadow);
+    color: var(--engine-text-main);
+
+    z-index: 100;
+    font-family: system-ui, -apple-system, sans-serif;
+    transition: background-color 0.4s ease, border-color 0.4s ease;
+
+    overflow-y: auto;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--engine-bg-hover) transparent;
+}
+
+.container::-webkit-scrollbar {
+    width: 6px;
+}
+.container::-webkit-scrollbar-thumb {
+    background-color: var(--engine-bg-hover);
+    border-radius: 10px;
+}
+
+.container.resizing {
+    user-select: none;
+}
+
+.resizer {
     position: absolute;
-    top: 20px;
-    right: 20px;
-    background: white;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    z-index: 10;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+    width: 8px;
+    cursor: ew-resize;
+    z-index: 101;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.resizer::after {
+    content: '';
+    display: block;
+    height: 40px;
+    width: 4px;
+    background-color: var(--engine-border);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.resizer:hover::after,
+.container.resizing .resizer::after {
+    height: 100%;
+    width: 4px;
+    background-color: var(--engine-border-focus);
+    box-shadow: 0 0 8px var(--engine-border-focus);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--engine-border);
+}
+
+.title {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.closeBtn {
+    background: transparent;
+    border: none;
+    color: var(--engine-text-muted);
+    font-size: 1.1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.closeBtn:hover {
+    background: var(--engine-bg-hover);
+    color: var(--engine-danger);
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--engine-text-muted);
+}
+
+.input {
+    width: 100%;
+    padding: 10px 12px;
+    background: var(--engine-bg-secondary);
+    border: 1px solid var(--engine-border);
+    border-radius: 6px;
+    color: var(--engine-text-main);
+    font-size: 0.9rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+}
+
+.input:focus {
+    border-color: var(--engine-border-focus);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--engine-border-focus) 20%, transparent);
+}
+
+.actionRow {
+    display: flex;
+    gap: 8px;
+}
+
+.btnSecondary, .btnDanger, .btnTool {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid var(--engine-border);
+    border-radius: 6px;
+    background: var(--engine-bg-secondary);
+    color: var(--engine-text-main);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.btnSecondary:hover {
+    background: var(--engine-bg-hover);
+    border-color: var(--engine-border-focus);
+}
+
+.btnDanger:hover {
+    background: color-mix(in srgb, var(--engine-danger) 15%, transparent);
+    color: var(--engine-danger);
+    border-color: var(--engine-danger);
+}
+
+.buttonGrid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.btnTool {
+    padding: 6px 8px;
+    font-size: 0.75rem;
+    background: transparent;
+}
+
+.btnTool:hover {
+    background: var(--engine-bg-hover);
+}
+
+.footer {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--engine-border);
+    font-size: 0.75rem;
+    color: var(--engine-text-muted);
+    font-family: monospace;
+    word-break: break-all;
+}
+
+.idLabel {
+    font-weight: bold;
+    color: var(--engine-text-main);
 }
