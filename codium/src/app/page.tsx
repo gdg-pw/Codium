@@ -35,7 +35,7 @@ export default function LandingPage() {
           <Typography variant="body1" className={styles.subtitle}>
             Learn how to code with corgi!
           </Typography>
-          <Button variant="contained" disableElevation className={`${styles.btn} ${styles.btnLarge}`}>
+          <Button variant="contained" disableElevation className={`${styles.btn} ${styles.btnLarge}` } href="/engine">
             Play
           </Button>
         </Box>
