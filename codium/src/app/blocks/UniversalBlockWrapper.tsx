@@ -71,3 +71,4 @@ const UniversalBlockWrapper: React.FC<NodeProps> = (props) => {
 };
 
 export default UniversalBlockWrapper;
+export { UniversalBlockWrapper as UniversalBlockNode };

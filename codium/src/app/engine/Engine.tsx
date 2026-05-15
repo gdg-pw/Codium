@@ -20,6 +20,7 @@ import NodeInspector from "@/app/engine/components/node/NodeInspector";
 import style from "@/app/engine/css/Engine.module.css"
 import {initialEdges, initialNodes} from "@/app/engine/TestLevel";
 import {UniversalBlockNode} from "@/app/blocks/UniversalBlockWrapper";
+import { blocksRegistry } from "@/app/blocks/BlocksRegistry";
 //======================================================================================
 export type NodeData = {
     label: string;
@@ -37,15 +38,21 @@ const edgeTypes = {
     wire: AnimatedEdge,
 };
 
+
+const registryNodeTypes = Object.fromEntries(
+    Object.keys(blocksRegistry).map((id) => [id, UniversalBlockNode])
+);
+
 const nodeTypes = {
-    test1: ExampleNode,
-    gate1: ExampleNode,
-    gate2: ExampleNode,
-    math1: ExampleNode,
-    math2: ExampleNode,
+    test1:     ExampleNode,
+    gate1:     ExampleNode,
+    gate2:     ExampleNode,
+    math1:     ExampleNode,
+    math2:     ExampleNode,
     whatever1: ExampleNode,
-    gameBlock: UniversalBlockNode,
+    ...registryNodeTypes,
 };
+
 //======================================================================================
 function Engine({ pendingNodeToAdd, setPendingNodeToAdd }: EngineProps) {
     const [nodes, setNodes] = useState<Node[]>(initialNodes);
