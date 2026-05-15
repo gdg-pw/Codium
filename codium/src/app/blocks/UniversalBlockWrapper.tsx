@@ -1,70 +1,73 @@
-// UniversalBlockNode.tsx
 import React from "react";
-import { Handle, Position, NodeProps } from "@xyflow/react";
-import {blocksRegistry} from "@/app/blocks/BlocksRegistry";
+import { NodeProps, Handle, Position } from "@xyflow/react";
+import { blocksRegistry } from "@/app/blocks/BlocksRegistry";
 
-export const UniversalBlockNode: React.FC<NodeProps> = (props) => {
-    // Zakładamy, że przy tworzeniu node'a w React Flow podajesz data: { blockId: "add" }
-    const blockId = props.data?.blockId as string;
-    const blockDef = blocksRegistry[blockId];
+const UniversalBlockWrapper: React.FC<NodeProps> = (props) => {
+    const block = blocksRegistry[props.type];
 
-    if (!blockDef) {
+    if (!block) {
         return (
-            <div className="p-4 bg-red-100 border-2 border-red-500 rounded text-red-900 text-xs">
-                Brak definicji: {blockId}
+            <div className="p-2 bg-red-100 border border-red-500 rounded text-red-700 text-xs">
+                Unknown block: {props.type}
             </div>
         );
     }
 
-    const { inputs, outputs, component: InnerComponent } = blockDef.visuals;
-
-    let i = -1;
+    const { inputs, outputs, component: InnerComponent } = block.visuals;
 
     return (
-        <div className="bg-white border-2 border-gray-800 rounded-lg shadow-xl min-w-[160px] overflow-hidden">
-            {/* Nagłówek bloku */}
-            <div className="bg-blue-600 text-white text-xs font-bold px-3 py-1 uppercase tracking-wider text-center">
-                {blockDef.name}
+        <div className="min-w-[160px] rounded-lg overflow-hidden shadow-md border border-gray-300 bg-white">
+
+            {/* Header */}
+            <div className="bg-blue-600 text-white text-xs font-semibold px-3 py-1 text-center">
+                {block.name}
             </div>
 
-            <div className="flex flex-col py-2 gap-1">
-                {/* 1. WEJŚCIA (Lewa strona) */}
-                {
-                    inputs.map((input) => (
-                    <div key={input.id} className="relative flex items-center px-2 h-6">
-                        <Handle
-                            type="target"
-                            position={Position.Left}
-                            id={input.id}
-                            className="w-3 h-3 border-2 border-gray-800 bg-blue-300 left-[-7px]"
-                            style={{ top: `${(++i) * 50}%` }}
-                        />
-                        <span className="text-[10px] text-gray-600 font-medium pl-2">
-                            {input.label}
-                        </span>
-                    </div>
-                ))}
+            {/* Body */}
+            <div className="flex items-stretch">
 
-                {/* 2. ŚRODEK (Customowy TSX z definicji) */}
-                <div className="px-3 py-2 border-y border-gray-100 bg-gray-50 my-1">
+                {/* Input ports */}
+                <div className="flex flex-col justify-around py-2 pl-0 pr-2 gap-1">
+                    {inputs.map((input) => (
+                        <div key={input.id} className="relative flex items-center h-6">
+                            <Handle
+                                type="target"
+                                position={Position.Left}
+                                id={input.id}
+                                className="w-3 h-3 border-2 border-gray-600 bg-blue-300"
+                            />
+                            <span className="text-[10px] text-gray-500 pl-3">
+                                {input.label}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+
+                {/* Inner component */}
+                <div className="flex-1 flex items-center justify-center px-1 py-2">
                     <InnerComponent {...props} />
                 </div>
 
-                {/* 3. WYJŚCIA (Prawa strona) */}
-                {outputs.map((output) => (
-                    <div key={output.id} className="relative flex items-center justify-end px-2 h-6">
-                        <span className="text-[10px] text-gray-600 font-medium pr-2">
-                            {output.label}
-                        </span>
-                        <Handle
-                            type="source"
-                            position={Position.Right}
-                            id={output.id}
-                            className="w-3 h-3 border-2 border-gray-800 bg-green-400 right-[-7px]"
-                        />
-                    </div>
-                ))}
+                {/* Output ports */}
+                <div className="flex flex-col justify-around py-2 pl-2 pr-0 gap-1">
+                    {outputs.map((output) => (
+                        <div key={output.id} className="relative flex items-center justify-end h-6">
+                            <span className="text-[10px] text-gray-500 pr-3">
+                                {output.label}
+                            </span>
+                            <Handle
+                                type="source"
+                                position={Position.Right}
+                                id={output.id}
+                                className="w-3 h-3 border-2 border-gray-600 bg-green-300"
+                            />
+                        </div>
+                    ))}
+                </div>
+
             </div>
         </div>
     );
 };
+
+export default UniversalBlockWrapper;

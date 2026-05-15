@@ -1,62 +1,32 @@
-import {MathBlock} from "@/app/blocks/BaseBlock";
 import React from "react";
+import { NodeProps } from "@xyflow/react";
+import { MathBlock } from "@/app/blocks/BaseBlock";
 
-//===============================
-//        INPUTS
-//===============================
-type AddInputs = number[];
+type AddInputs = { a: number; b: number };
 
+const AddBlockUI: React.FC<NodeProps> = () => (
+    <span className="text-lg font-bold text-blue-700">+</span>
+);
 
-//===============================
-//        VISUAL
-//===============================
-const AddBlockUI: React.FC<any> = ({ data }) => {
-    return (
-        <div className="p-2 bg-blue-100 rounded border border-blue-500">
-            <div className="font-bold text-blue-900 mb-2">
-                TODO
-            </div>
-            <div className="text-xs text-gray-600">
-                Jakies ui do tego
-            </div>
-        </div>
-    );
-};
-
-
-
-//===============================
-//        LOGIC
-//===============================
 export const addBlock: MathBlock<AddInputs> = {
     id: "add",
-    name: "Dodawanie Wiele",
+    name: "Addition",
     category: "math",
-    execute: (inputs) => {
-        const result = inputs.reduce((sum, current) => sum + current, 0);
-
+    execute: ({ a, b }) => {
+        const result = a + b;
         if (!Number.isFinite(result)) {
-            return {
-                success: false,
-                error: "Overflow: Wynik przekracza bezpieczny zakres liczb całkowitych."
-            };
+            return { success: false, error: "Overflow: result exceeds safe number range." };
         }
-
-        // inputs.values to nasza gwarantowana tablica
-        return {
-            success: true,
-            value: result
-        };
+        return { success: true, value: result };
     },
     visuals: {
-        //two inputs
         inputs: [
-            { id: "value1", label: "" },
-            { id: "value2", label: "" }
+            { id: "a", label: "A" },
+            { id: "b", label: "B" },
         ],
         outputs: [
-            { id: "result", label: "" }
+            { id: "result", label: "Result" },
         ],
-        component: AddBlockUI //TSX UI
-    }
+        component: AddBlockUI,
+    },
 };

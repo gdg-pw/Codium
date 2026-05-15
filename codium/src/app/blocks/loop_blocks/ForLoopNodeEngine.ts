@@ -1,21 +1,19 @@
-interface ForLoopParams {
-  startIndex: number;
-  endIndex: number;
-}
+import { BlockResult } from "@/app/blocks/BlockResult";
 
-export function getForLoopSequence(params: ForLoopParams): number[] {
-  const { startIndex, endIndex } = params;
-  const sequence: number[] = [];
-
-  if (startIndex <= endIndex) {
-    for (let i = startIndex; i <= endIndex; i++) {
-      sequence.push(i);
+// Returns every index in [startIndex, endIndex) as a BlockResult.
+export function getForLoopSequence(
+    startIndex: number,
+    endIndex: number
+): BlockResult<number[]> {
+    if (!Number.isInteger(startIndex) || !Number.isInteger(endIndex)) {
+        return { success: false, error: "startIndex and endIndex must be integers." };
     }
-  } else {
-    for (let i = startIndex; i >= endIndex; i--) {
-      sequence.push(i);
+    if (startIndex > endIndex) {
+        return { success: false, error: "startIndex must be less than or equal to endIndex." };
     }
-  }
-
-  return sequence;
+    const sequence: number[] = [];
+    for (let i = startIndex; i < endIndex; i++) {
+        sequence.push(i);
+    }
+    return { success: true, value: sequence };
 }

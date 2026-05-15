@@ -1,16 +1,15 @@
 import { BlockResult } from "@/app/blocks/BlockResult";
-import {NodeProps} from "@xyflow/react";
+import { NodeProps } from "@xyflow/react";
 
-//allowed data types
-export type AllowedInputValues = number[] | boolean[];
-
+// Allowed data types for inputs — keyed by port ID
+export type AllowedInputValues = Record<string, number | boolean>;
 
 //===============================
 //      PORT INPUT/OUTPUT
 //===============================
 export interface PortDefinition {
-    id: string;     // np. "a", "b", "values"
-    label: string;  // np. "Liczba A"
+    id: string;
+    label: string;
 }
 
 //===============================
@@ -20,13 +19,14 @@ export interface BaseBlock<TCategory extends string, TInputs extends AllowedInpu
     id: string;
     name: string;
     category: TCategory;
-    execute: (inputs: TInputs) => BlockResult<TOutput>;
 
-    // --- NOWA SEKCJA WIZUALNA ---
+    // `data` carries node-level state (e.g. selected gate type, dropdown config)
+    execute: (inputs: TInputs, data?: Record<string, unknown>) => BlockResult<TOutput>;
+
     visuals: {
-        inputs: PortDefinition[];  // Porty wejściowe (z lewej)
-        outputs: PortDefinition[]; // Porty wyjściowe (z prawej)
-        // TSX stanowiący środek bloku. NodeProps daje dostęp do np. data, id
+        inputs: PortDefinition[];
+        outputs: PortDefinition[];
+        // Inner component rendered inside UniversalBlockWrapper (no Card/header/handles)
         component: React.FC<NodeProps>;
     };
 }
@@ -34,15 +34,20 @@ export interface BaseBlock<TCategory extends string, TInputs extends AllowedInpu
 //===============================
 //        SPECIFIC BLOCKS
 //===============================
-//tinput is a record with <key, number> or just an array of numbers wrapped in that record
-export type MathBlock<TInputs extends number[]> = BaseBlock<"math", TInputs, number>;
+export type MathBlock<TInputs extends Record<string, number>> =
+    BaseBlock<"math", TInputs, number>;
 
-//tinput is a record with <key, number> or just an array of booleans wrapped in that record
-export type LogicBlock<TInputs extends boolean[]> = BaseBlock<"logic", TInputs, boolean>;
+export type LogicBlock<TInputs extends Record<string, boolean>> =
+    BaseBlock<"logic", TInputs, boolean>;
+
+// FlowBlock output is flexible — e.g. a loop produces number[]
+export type FlowBlock<TInputs extends AllowedInputValues, TOutput = void> =
+    BaseBlock<"flow", TInputs, TOutput>;
 
 //===============================
 //       ANY GAME BLOCK
 //===============================
 export type AnyGameBlock =
     | MathBlock<any>
-    | LogicBlock<any>;
+    | LogicBlock<any>
+    | FlowBlock<any, any>;
