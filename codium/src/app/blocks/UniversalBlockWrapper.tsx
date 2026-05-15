@@ -1,42 +1,100 @@
-import React from "react";
+import * as React from "react";
 import { NodeProps, Handle, Position } from "@xyflow/react";
 import { blocksRegistry } from "@/app/blocks/BlocksRegistry";
+
+const CATEGORY_COLOR: Record<string, string> = {
+    math:  "#3b82f6",
+    logic: "#f59e0b",
+    flow:  "#22c55e",
+};
 
 const UniversalBlockWrapper: React.FC<NodeProps> = (props) => {
     const block = blocksRegistry[props.type];
 
     if (!block) {
         return (
-            <div className="p-2 bg-red-100 border border-red-500 rounded text-red-700 text-xs">
+            <div style={{
+                padding: 8, background: "#450a0a",
+                border: "1px solid #ef4444", borderRadius: 8,
+                color: "#fca5a5", fontSize: 11,
+            }}>
                 Unknown block: {props.type}
             </div>
         );
     }
 
     const { inputs, outputs, component: InnerComponent } = block.visuals;
+    const accent = CATEGORY_COLOR[block.category] ?? "#6b7280";
 
     return (
-        <div className="min-w-[160px] rounded-lg overflow-hidden shadow-md border border-gray-300 bg-white">
+        <div style={{
+            minWidth: 160,
+            borderRadius: 10,
+            overflow: "visible",            /* CRITICAL — must not clip handles */
+            background: "#1e293b",
+            border: `1.5px solid ${accent}66`,
+            boxShadow: `0 4px 24px rgba(0,0,0,0.5), 0 0 0 1px ${accent}22`,
+        }}>
 
-            {/* Header */}
-            <div className="bg-blue-600 text-white text-xs font-semibold px-3 py-1 text-center">
+            {/* ── Header ── */}
+            <div style={{
+                background: `linear-gradient(135deg, ${accent}, ${accent}aa)`,
+                borderRadius: "8px 8px 0 0",
+                padding: "5px 12px",
+                textAlign: "center",
+                color: "#fff",
+                fontSize: 10,
+                fontWeight: 800,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                fontFamily: "monospace",
+            }}>
                 {block.name}
             </div>
 
-            {/* Body */}
-            <div className="flex items-stretch">
+            {/* ── Body ── */}
+            <div style={{ display: "flex", alignItems: "stretch" }}>
 
                 {/* Input ports */}
-                <div className="flex flex-col justify-around py-2 pl-0 pr-2 gap-1">
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
+                    padding: "10px 0",
+                }}>
                     {inputs.map((input) => (
-                        <div key={input.id} className="relative flex items-center h-6">
+                        <div key={input.id} style={{
+                            display: "flex",
+                            alignItems: "center",
+                            minHeight: 28,
+                            position: "relative",
+                        }}>
                             <Handle
                                 type="target"
                                 position={Position.Left}
                                 id={input.id}
-                                className="w-3 h-3 border-2 border-gray-600 bg-blue-300"
+                                style={{
+                                    position: "absolute",
+                                    width: 12,
+                                    height: 12,
+                                    background: "#93c5fd",
+                                    border: "2px solid #1e293b",
+                                    borderRadius: "50%",
+                                    boxShadow: "0 0 8px #3b82f6aa",
+                                    left: -6,
+                                    top: "50%",
+                                    transform: "translateY(-50%)",
+                                }}
                             />
-                            <span className="text-[10px] text-gray-500 pl-3">
+                            <span style={{
+                                fontSize: 10,
+                                fontWeight: 600,
+                                color: "#94a3b8",
+                                fontFamily: "monospace",
+                                paddingLeft: 14,
+                                paddingRight: 8,
+                                whiteSpace: "nowrap",
+                            }}>
                                 {input.label}
                             </span>
                         </div>
@@ -44,22 +102,60 @@ const UniversalBlockWrapper: React.FC<NodeProps> = (props) => {
                 </div>
 
                 {/* Inner component */}
-                <div className="flex-1 flex items-center justify-center px-1 py-2">
+                <div style={{
+                    flex: 1,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "8px 4px",
+                    borderLeft:  `1px solid ${accent}22`,
+                    borderRight: `1px solid ${accent}22`,
+                }}>
                     <InnerComponent {...props} />
                 </div>
 
                 {/* Output ports */}
-                <div className="flex flex-col justify-around py-2 pl-2 pr-0 gap-1">
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-around",
+                    padding: "10px 0",
+                }}>
                     {outputs.map((output) => (
-                        <div key={output.id} className="relative flex items-center justify-end h-6">
-                            <span className="text-[10px] text-gray-500 pr-3">
+                        <div key={output.id} style={{
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "flex-end",
+                            minHeight: 28,
+                            position: "relative",
+                        }}>
+                            <span style={{
+                                fontSize: 10,
+                                fontWeight: 600,
+                                color: "#94a3b8",
+                                fontFamily: "monospace",
+                                paddingLeft: 8,
+                                paddingRight: 14,
+                                whiteSpace: "nowrap",
+                            }}>
                                 {output.label}
                             </span>
                             <Handle
                                 type="source"
                                 position={Position.Right}
                                 id={output.id}
-                                className="w-3 h-3 border-2 border-gray-600 bg-green-300"
+                                style={{
+                                    position: "absolute",
+                                    width: 12,
+                                    height: 12,
+                                    background: "#86efac",
+                                    border: "2px solid #1e293b",
+                                    borderRadius: "50%",
+                                    boxShadow: "0 0 8px #22c55eaa",
+                                    right: -6,
+                                    top: "50%",
+                                    transform: "translateY(-50%)",
+                                }}
                             />
                         </div>
                     ))}
