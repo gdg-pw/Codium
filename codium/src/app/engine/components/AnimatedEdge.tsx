@@ -8,23 +8,18 @@ interface AnimatedEdgeProps {
     sourceY: number;
     targetX: number;
     targetY: number;
-    selected: boolean;
+    selected?: boolean;  // was `boolean` — ReactFlow passes `boolean | undefined`
 }
 
 export default function AnimatedEdge({
-                                     id,
-                                     sourceX,
-                                     sourceY,
-                                     targetX,
-                                     targetY,
-                                     selected,
-                                 }: AnimatedEdgeProps) {
-    const [edgePath] = getSmoothStepPath({
-        sourceX,
-        sourceY,
-        targetX,
-        targetY,
-    });
+    id,
+    sourceX,
+    sourceY,
+    targetX,
+    targetY,
+    selected,
+}: AnimatedEdgeProps) {
+    const [edgePath] = getSmoothStepPath({ sourceX, sourceY, targetX, targetY });
 
     return (
         <>
