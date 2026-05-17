@@ -26,6 +26,14 @@ export const initialNodes: Node[] = [
             iconFile: "/cat.svg"
         },
     },
+    {
+        id: 'node-1',
+        type: 'gameBlock',
+        position: { x: 250, y: 250 },
+        data: {
+            blockId: 'add'
+        }
+    }
 ];
 //======================================================================================
 export const initialEdges: Edge[] = [

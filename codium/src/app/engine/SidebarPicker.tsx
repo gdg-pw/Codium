@@ -4,30 +4,34 @@ import React, { useState } from 'react';
 import Image from "next/image";
 import style from "@/app/engine/css/SidebarPicker.module.css";
 import NodeDraggable from "@/app/engine/components/node/NodeDraggable";
-import {NodeData} from "@/app/engine/Engine";
-//======================================================================================
-//======================================================================================
-const NODE_CATEGORIES = {
-    "Logical": [
-        { type: "gate1", label: "C1_Test1", iconFile: "/dog.svg" },
-        { type: "gate2", label: "C1_Test2", iconFile: "/cat.svg" },
-    ],
-    "Mathematical": [
-        { type: "math1", label: "C2_Test1", iconFile: "/dog.svg" },
-        { type: "math2", label: "C2_Test2", iconFile: "/cat.svg" },
-    ],
-    "Whatever": [
-        { type: "whatever1", label: "C3_Test1", iconFile: "/dog.svg" },
-    ]
+import { NodeData } from "@/app/engine/Engine";
+import { blocksRegistry } from "@/app/blocks/BlocksRegistry";
+
+const CATEGORY_ICON: Record<string, string> = {
+    math:  "/dog.svg",
+    logic: "/cat.svg",
+    flow:  "/dog.svg",
 };
 
+const NODE_CATEGORIES: Record<string, NodeData[]> = {};
+
+for (const block of Object.values(blocksRegistry)) {
+    const category = block.category.charAt(0).toUpperCase() + block.category.slice(1);
+    if (!NODE_CATEGORIES[category]) NODE_CATEGORIES[category] = [];
+    NODE_CATEGORIES[category].push({
+        type:     block.id,
+        label:    block.name,
+        iconFile: CATEGORY_ICON[block.category] ?? "/dog.svg",
+    });
+}
+
 type CategoryKey = keyof typeof NODE_CATEGORIES;
-//======================================================================================
+
 interface SidebarPickerProps {
     pendingNodeToAdd: NodeData | null;
     setPendingNodeToAdd: React.Dispatch<React.SetStateAction<NodeData | null>>;
 }
-//======================================================================================
+
 export default function SidebarPicker({ pendingNodeToAdd, setPendingNodeToAdd }: SidebarPickerProps) {
     const categories = Object.keys(NODE_CATEGORIES) as CategoryKey[];
     const [activeTab, setActiveTab] = useState<CategoryKey>(categories[0]);
@@ -42,7 +46,6 @@ export default function SidebarPicker({ pendingNodeToAdd, setPendingNodeToAdd }:
 
     return (
         <div className={style.sidebarPicker}>
-            {/* tab navbar */}
             <div className={style.tabBar}>
                 {categories.map((category) => (
                     <button
@@ -54,8 +57,6 @@ export default function SidebarPicker({ pendingNodeToAdd, setPendingNodeToAdd }:
                     </button>
                 ))}
             </div>
-
-            {/* tab content */}
             <div className={style.tabContent}>
                 <div className={style.itemGrid}>
                     {NODE_CATEGORIES[activeTab].map((item: NodeData) => (
@@ -63,7 +64,6 @@ export default function SidebarPicker({ pendingNodeToAdd, setPendingNodeToAdd }:
                             data={item}
                             key={item.label}
                             icon={<Image src={item.iconFile} alt={item.label} width={30} height={30}/>}
-
                             isPending={pendingNodeToAdd?.type === item.type}
                             evtOnClick={() => handleNodeClick(item)}
                         />
